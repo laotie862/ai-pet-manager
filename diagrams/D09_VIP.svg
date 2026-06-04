@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="920" viewBox="0 0 850 920">
+<rect width="850" height="920" fill="#FFFFFF"/>
+<text x="425" y="35" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="18" font-weight="bold" fill="#1F4E79">VIP用户增值服务用例图</text>
+<rect x="260" y="70" width="550" height="800" rx="8" ry="8" fill="none" stroke="#1F4E79" stroke-width="2" stroke-dasharray="8,4"/>
+    <rect x="272" y="60" width="164" height="22" rx="4" fill="#1F4E79"/>
+    <text x="282" y="77" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#FFFFFF" font-weight="bold">VIP增值服务模块</text>
+<circle cx="60" cy="443" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="452" x2="60" y2="474" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="458" x2="74" y2="458" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="474" x2="48" y2="490" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="474" x2="72" y2="490" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="509" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">VIP用户</text>
+<ellipse cx="535" cy="130" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="134.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-01 查看趋势分析图表</text>
+<ellipse cx="535" cy="200" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="204.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-02 接收AI健康预警</text>
+<ellipse cx="535" cy="270" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="274.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-03 获取AI定制饲养计划</text>
+<ellipse cx="535" cy="340" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="344.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-04 导出分析报告</text>
+<ellipse cx="535" cy="410" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="414.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-05 云端视频存储与回放</text>
+<ellipse cx="535" cy="480" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="484.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-06 多宠对比看板</text>
+<ellipse cx="535" cy="550" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="554.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-07 自定义提醒阈值</text>
+<ellipse cx="535" cy="620" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="624.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-08 宠物专家线上咨询</text>
+<ellipse cx="535" cy="690" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="694.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-09 不限宠物数量</text>
+<ellipse cx="535" cy="760" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="764.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-10 不限摄像头数量</text>
+<ellipse cx="535" cy="830" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="834.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-V-11 VIP续费管理</text>
+<line x1="60" y1="485" x2="442.88377347320915" y2="153.946003051358" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="436.3883135430574" y2="220.57983021710106" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="430.2324516159289" y2="286.4942959469659" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="425.0105855304348" y2="351.6785099116426" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="421.4072589871571" y2="416.2385029389204" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="420.00637066172277" y2="480.4210293065017" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="421.0618415143383" y2="544.5768565297443" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="424.38091291408176" y2="609.0646577526048" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="429.41363807575556" y2="674.1499648919212" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="435.4759771696705" y2="739.9585491783319" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="485" x2="441.9530142917142" y2="806.4933930842226" stroke="#333" stroke-width="1.5"/>
+</svg>

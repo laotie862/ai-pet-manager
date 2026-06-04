@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="570" viewBox="0 0 850 570">
+<rect width="850" height="570" fill="#FFFFFF"/>
+<text x="425" y="35" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="18" font-weight="bold" fill="#1F4E79">普通用户 — 健康管理用例图</text>
+<rect x="260" y="70" width="550" height="450" rx="8" ry="8" fill="none" stroke="#1F4E79" stroke-width="2" stroke-dasharray="8,4"/>
+    <rect x="272" y="60" width="116" height="22" rx="4" fill="#1F4E79"/>
+    <text x="282" y="77" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#FFFFFF" font-weight="bold">健康管理模块</text>
+<circle cx="60" cy="268" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="277" x2="60" y2="299" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="283" x2="74" y2="283" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="299" x2="48" y2="315" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="299" x2="72" y2="315" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="334" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">普通用户</text>
+<ellipse cx="535" cy="130" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="134.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-H-01 添加疫苗记录</text>
+<ellipse cx="535" cy="200" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="204.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-H-02 添加驱虫记录</text>
+<ellipse cx="535" cy="270" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="274.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-H-03 添加体检记录</text>
+<ellipse cx="535" cy="340" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="344.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-H-04 添加医疗/用药记录</text>
+<ellipse cx="535" cy="410" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="414.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-H-05 查看健康记录列表</text>
+<ellipse cx="535" cy="480" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="484.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-H-06 删除/编辑健康记录</text>
+<line x1="60" y1="310" x2="427.46234630370793" y2="144.17429943456847" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="310" x2="422.9649217192215" y2="209.02433582490482" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="310" x2="420.40560029367384" y2="273.3565407694301" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="310" x2="420.2286789713131" y2="337.4787078217954" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="310" x2="422.46677472652385" y2="401.75958075800634" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="310" x2="426.72549001802975" y2="466.52143399766777" stroke="#333" stroke-width="1.5"/>
+</svg>

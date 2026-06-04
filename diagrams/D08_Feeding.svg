@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="300" viewBox="0 0 850 300">
+<rect width="850" height="300" fill="#FFFFFF"/>
+<text x="425" y="35" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="18" font-weight="bold" fill="#1F4E79">普通用户 — AI饲养建议用例图</text>
+<rect x="260" y="70" width="550" height="180" rx="8" ry="8" fill="none" stroke="#1F4E79" stroke-width="2" stroke-dasharray="8,4"/>
+    <rect x="272" y="60" width="148" height="22" rx="4" fill="#1F4E79"/>
+    <text x="282" y="77" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#FFFFFF" font-weight="bold">AI饲养建议模块</text>
+<circle cx="60" cy="133" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="142" x2="60" y2="164" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="148" x2="74" y2="148" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="164" x2="48" y2="180" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="164" x2="72" y2="180" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="199" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">普通用户</text>
+<ellipse cx="535" cy="130" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="134.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-F-01 查看通用饲养指南</text>
+<ellipse cx="535" cy="200" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="204.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-F-02 查看每日AI饲养建议</text>
+<line x1="60" y1="175" x2="420.5126184616065" y2="133.77258190881662" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="175" x2="420.1589496267614" y2="197.89764667508945" stroke="#333" stroke-width="1.5"/>
+</svg>

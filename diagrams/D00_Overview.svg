@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="570" viewBox="0 0 850 570">
+<rect width="850" height="570" fill="#FFFFFF"/>
+<text x="425" y="35" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="18" font-weight="bold" fill="#1F4E79">系统角色与权限递进关系图</text>
+<rect x="260" y="70" width="550" height="450" rx="8" ry="8" fill="none" stroke="#1F4E79" stroke-width="2" stroke-dasharray="8,4"/>
+    <rect x="272" y="60" width="148" height="22" rx="4" fill="#1F4E79"/>
+    <text x="282" y="77" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#FFFFFF" font-weight="bold">AI宠物管家平台</text>
+<circle cx="60" cy="163" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="172" x2="60" y2="194" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="178" x2="74" y2="178" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="194" x2="48" y2="210" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="194" x2="72" y2="210" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="229" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">游客</text>
+<circle cx="60" cy="233" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="242" x2="60" y2="264" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="248" x2="74" y2="248" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="264" x2="48" y2="280" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="264" x2="72" y2="280" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="299" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">普通用户</text>
+<circle cx="60" cy="303" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="312" x2="60" y2="334" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="318" x2="74" y2="318" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="334" x2="48" y2="350" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="334" x2="72" y2="350" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="369" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">VIP用户</text>
+<circle cx="60" cy="373" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="382" x2="60" y2="404" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="388" x2="74" y2="388" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="404" x2="48" y2="420" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="404" x2="72" y2="420" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="439" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">管理员</text>
+<ellipse cx="535" cy="130" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="134.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">浏览功能与示例报告</text>
+<ellipse cx="535" cy="200" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="204.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">AI行为监控与每日报告</text>
+<ellipse cx="535" cy="270" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="274.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">健康管理与智能提醒</text>
+<ellipse cx="535" cy="340" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="344.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">趋势分析与AI健康预警</text>
+<ellipse cx="535" cy="410" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="414.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">宠物专家线上咨询</text>
+<ellipse cx="535" cy="480" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="484.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">后台管理与专家审核</text>
+<line x1="60" y1="205" x2="421.4072589871571" y2="136.23850293892045" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="275" x2="421.4072589871571" y2="206.23850293892045" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="275" x2="420.00637066172277" y2="270.4210293065017" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="345" x2="420.00637066172277" y2="340.4210293065017" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="345" x2="421.0618415143383" y2="404.57685652974425" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="415" x2="421.0618415143383" y2="474.57685652974425" stroke="#333" stroke-width="1.5"/>
+</svg>

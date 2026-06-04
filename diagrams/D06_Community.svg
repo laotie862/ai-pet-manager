@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="710" viewBox="0 0 850 710">
+  <rect width="850" height="710" fill="#FFFFFF"/>
+  <text x="425" y="35" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1F4E79">普通用户 — 社区交流用例图</text>
+<rect x="240" y="70" width="570" height="590" rx="8" ry="8" fill="none" stroke="#1F4E79" stroke-width="2" stroke-dasharray="8,4"/>
+    <rect x="252" y="60" width="116" height="22" rx="4" fill="#1F4E79"/>
+    <text x="262" y="77" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#FFFFFF" font-weight="bold">社区交流模块</text>
+<circle cx="60" cy="338" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="347" x2="60" y2="369" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="353" x2="74" y2="353" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="369" x2="48" y2="385" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="369" x2="72" y2="385" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="402" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">普通用户</text>
+<ellipse cx="525" cy="130" rx="110" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="525" y="134.55" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#1a1a2e">发布帖子</text>
+<ellipse cx="525" cy="200" rx="110" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="525" y="204.55" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#1a1a2e">编辑/删除自己的帖子</text>
+<ellipse cx="525" cy="270" rx="110" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="525" y="274.55" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#1a1a2e">浏览帖子列表与详情</text>
+<ellipse cx="525" cy="340" rx="110" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="525" y="344.55" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#1a1a2e">点赞帖子/评论</text>
+<ellipse cx="525" cy="410" rx="110" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="525" y="414.55" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#1a1a2e">评论帖子</text>
+<ellipse cx="525" cy="480" rx="110" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="525" y="484.55" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#1a1a2e">收藏帖子</text>
+<ellipse cx="525" cy="550" rx="110" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="525" y="554.55" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#1a1a2e">分享帖子</text>
+<ellipse cx="525" cy="620" rx="110" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="525" y="624.55" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#1a1a2e">举报帖子/评论</text>
+<line x1="60" y1="380" x2="423.7108722617629" y2="148.94139836152166" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="380" x2="417.7546686984797" y2="214.4397641023085" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="380" x2="413.0886692321465" y2="279.2082254395242" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="380" x2="410.423135848935" y2="343.4281997688958" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="380" x2="410.2385894686273" y2="407.4247088800814" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="380" x2="412.57044420114005" y2="471.5901220533812" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="380" x2="416.9917349754404" y2="536.2654286644786" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="380" x2="422.8086244386907" y2="601.6542832091899" stroke="#333" stroke-width="1.5"/>
+</svg>

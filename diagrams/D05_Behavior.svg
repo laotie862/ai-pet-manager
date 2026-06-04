@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="430" viewBox="0 0 850 430">
+<rect width="850" height="430" fill="#FFFFFF"/>
+<text x="425" y="35" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="18" font-weight="bold" fill="#1F4E79">普通用户 — AI行为分析用例图</text>
+<rect x="260" y="70" width="550" height="310" rx="8" ry="8" fill="none" stroke="#1F4E79" stroke-width="2" stroke-dasharray="8,4"/>
+    <rect x="272" y="60" width="148" height="22" rx="4" fill="#1F4E79"/>
+    <text x="282" y="77" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#FFFFFF" font-weight="bold">AI行为分析模块</text>
+<circle cx="60" cy="198" r="9" fill="none" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="207" x2="60" y2="229" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="46" y1="213" x2="74" y2="213" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="229" x2="48" y2="245" stroke="#1a1a2e" stroke-width="1.8"/>
+<line x1="60" y1="229" x2="72" y2="245" stroke="#1a1a2e" stroke-width="1.8"/>
+<text x="60" y="264" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">普通用户</text>
+<ellipse cx="535" cy="130" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="134.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-A-01 查看实时行为状态</text>
+<ellipse cx="535" cy="200" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="204.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-A-02 查看行为事件时间线</text>
+<ellipse cx="535" cy="270" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="274.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-A-03 查看当日行为摘要</text>
+<ellipse cx="535" cy="340" rx="115" ry="36" fill="#E8F0FE" stroke="#2E75B6" stroke-width="1.8"/>
+<text x="535" y="344.55" text-anchor="middle" font-family="Microsoft YaHei,Arial,sans-serif" font-size="13" fill="#1a1a2e">UC-A-04 接收异常行为告警</text>
+<line x1="60" y1="240" x2="422.9649217192215" y2="139.02433582490482" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="240" x2="420.40560029367384" y2="203.35654076943015" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="240" x2="420.2286789713131" y2="267.4787078217954" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="240" x2="422.46677472652385" y2="331.75958075800634" stroke="#333" stroke-width="1.5"/>
+</svg>
