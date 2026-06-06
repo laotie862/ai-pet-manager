@@ -1,0 +1,31 @@
+@startuml
+title 系统角色与权限递进关系图
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "游客" as guest
+actor "普通用户" as user
+actor "VIP用户" as vip
+actor "管理员" as admin
+
+rectangle "AI宠物管家平台" {
+  usecase "浏览功能与示例报告" as UC_browse
+  usecase "AI行为监控与每日报告" as UC_ai
+  usecase "健康管理与智能提醒" as UC_health
+  usecase "趋势分析与AI健康预警" as UC_trend
+  usecase "宠物专家线上咨询" as UC_expert
+  usecase "后台管理与专家审核" as UC_sys
+}
+
+guest --> UC_browse
+user --> UC_ai
+user --> UC_health
+vip --> UC_trend
+vip --> UC_expert
+admin --> UC_sys
+
+note right of guest : 最低权限
+note right of admin : 最高权限
+
+@enduml

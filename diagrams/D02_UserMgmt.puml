@@ -1,0 +1,23 @@
+@startuml
+title 普通用户 — 用户管理用例图
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "普通用户" as user
+
+rectangle "用户管理模块" {
+  usecase "UC-U-01\n登录系统" as UC_U01
+  usecase "UC-U-02\n找回密码" as UC_U02
+  usecase "UC-U-03\n修改个人资料" as UC_U03
+  usecase "UC-U-04\n修改头像" as UC_U04
+  usecase "UC-U-05\n升级VIP" as UC_U05
+}
+
+user --> UC_U01
+user --> UC_U02
+user --> UC_U03
+user --> UC_U04
+user --> UC_U05
+
+@enduml

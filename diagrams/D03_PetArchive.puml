@@ -1,0 +1,21 @@
+@startuml
+title 普通用户 — 宠物档案管理用例图
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "普通用户" as user
+
+rectangle "宠物档案管理模块" {
+  usecase "UC-P-01\n新增宠物档案" as UC_P01
+  usecase "UC-P-02\n编辑宠物信息" as UC_P02
+  usecase "UC-P-03\n删除宠物档案" as UC_P03
+  usecase "UC-P-04\n查看宠物档案详情" as UC_P04
+}
+
+user --> UC_P01
+user --> UC_P02
+user --> UC_P03
+user --> UC_P04
+
+@enduml

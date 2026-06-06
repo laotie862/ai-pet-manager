@@ -1,0 +1,21 @@
+@startuml
+title 普通用户 — AI行为分析用例图
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "普通用户" as user
+
+rectangle "AI行为分析模块" {
+  usecase "UC-A-01\n查看实时行为状态" as UC_A01
+  usecase "UC-A-02\n查看行为事件时间线" as UC_A02
+  usecase "UC-A-03\n查看当日行为摘要" as UC_A03
+  usecase "UC-A-04\n接收异常行为告警" as UC_A04
+}
+
+user --> UC_A01
+user --> UC_A02
+user --> UC_A03
+user --> UC_A04
+
+@enduml

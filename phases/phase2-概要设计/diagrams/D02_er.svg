@@ -1,0 +1,140 @@
+<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" width="980" height="900" viewBox="0 0 980 900"><rect width="980" height="900" fill="#fff"/>
+<text x="490" y="28" text-anchor="middle" font-family="Microsoft YaHei,Arial" font-size="16" font-weight="bold" fill="#1F4E79">核心数据模型（ER概要）</text><rect x="30" y="60" width="170" height="20" rx="3" fill="#1F4E79"/><text x="115" y="74" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_user</text>
+<rect x="30" y="82" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="94" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="30" y="100" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="112" font-family="Arial" font-size="9" fill="#555">phone</text>
+<rect x="30" y="118" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="130" font-family="Arial" font-size="9" fill="#555">password</text>
+<rect x="30" y="136" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="148" font-family="Arial" font-size="9" fill="#555">nickname</text>
+<rect x="30" y="154" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="166" font-family="Arial" font-size="9" fill="#555">avatar_url</text>
+<rect x="30" y="172" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="184" font-family="Arial" font-size="9" fill="#555">wechat_user_id</text>
+<rect x="30" y="190" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="202" font-family="Arial" font-size="9" fill="#555">push_token</text>
+<rect x="30" y="208" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="220" font-family="Arial" font-size="9" fill="#555">vip_status</text>
+<rect x="30" y="226" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="238" font-family="Arial" font-size="9" fill="#555">roles</text>
+<rect x="30" y="80" width="170" height="164" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><rect x="300" y="60" width="170" height="20" rx="3" fill="#1F4E79"/><text x="385" y="74" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_pet</text>
+<rect x="300" y="82" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="310" y="94" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="300" y="100" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="310" y="112" font-family="Arial" font-size="9" fill="#555">user_id(FK)</text>
+<rect x="300" y="118" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="310" y="130" font-family="Arial" font-size="9" fill="#555">name</text>
+<rect x="300" y="136" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="310" y="148" font-family="Arial" font-size="9" fill="#555">breed</text>
+<rect x="300" y="154" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="310" y="166" font-family="Arial" font-size="9" fill="#555">gender</text>
+<rect x="300" y="172" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="310" y="184" font-family="Arial" font-size="9" fill="#555">birthday</text>
+<rect x="300" y="190" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="310" y="202" font-family="Arial" font-size="9" fill="#555">weight_kg</text>
+<rect x="300" y="208" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="310" y="220" font-family="Arial" font-size="9" fill="#555">photo_url</text>
+<rect x="300" y="80" width="170" height="146" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="200" y1="88" x2="300" y2="88" stroke="#666" stroke-width="1.2"/>
+      <text x="250" y="80" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">1 : N</text><rect x="540" y="60" width="170" height="20" rx="3" fill="#1F4E79"/><text x="625" y="74" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_behavior_event</text>
+<rect x="540" y="82" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="94" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="540" y="100" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="112" font-family="Arial" font-size="9" fill="#555">pet_id(FK)</text>
+<rect x="540" y="118" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="130" font-family="Arial" font-size="9" fill="#555">device_id</text>
+<rect x="540" y="136" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="148" font-family="Arial" font-size="9" fill="#555">behavior</text>
+<rect x="540" y="154" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="166" font-family="Arial" font-size="9" fill="#555">confidence</text>
+<rect x="540" y="172" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="184" font-family="Arial" font-size="9" fill="#555">start_time</text>
+<rect x="540" y="190" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="202" font-family="Arial" font-size="9" fill="#555">end_time</text>
+<rect x="540" y="208" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="220" font-family="Arial" font-size="9" fill="#555">video_url</text>
+<rect x="540" y="80" width="170" height="146" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="470" y1="100" x2="540" y2="88" stroke="#666" stroke-width="1.2"/>
+      <text x="505" y="80" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">1 : N</text><rect x="750" y="60" width="160" height="20" rx="3" fill="#1F4E79"/><text x="830" y="74" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_behavior_summary</text>
+<rect x="750" y="82" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="760" y="94" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="750" y="100" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="760" y="112" font-family="Arial" font-size="9" fill="#555">pet_id(FK)</text>
+<rect x="750" y="118" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="760" y="130" font-family="Arial" font-size="9" fill="#555">date</text>
+<rect x="750" y="136" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="760" y="148" font-family="Arial" font-size="9" fill="#555">eat_count</text>
+<rect x="750" y="154" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="760" y="166" font-family="Arial" font-size="9" fill="#555">drink_count</text>
+<rect x="750" y="172" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="760" y="184" font-family="Arial" font-size="9" fill="#555">exercise_min</text>
+<rect x="750" y="190" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="760" y="202" font-family="Arial" font-size="9" fill="#555">sleep_min</text>
+<rect x="750" y="208" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="760" y="220" font-family="Arial" font-size="9" fill="#555">defecate_count</text>
+<rect x="750" y="80" width="160" height="146" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="710" y1="88" x2="750" y2="88" stroke="#666" stroke-width="1.2"/>
+      <text x="730" y="84" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">1 : 1</text><line x1="540" y1="130" x2="750" y2="118" stroke="#666" stroke-width="1.2"/>
+      <text x="650" y="114" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">汇总</text><rect x="30" y="240" width="170" height="20" rx="3" fill="#1F4E79"/><text x="115" y="254" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_device</text>
+<rect x="30" y="262" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="274" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="30" y="280" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="292" font-family="Arial" font-size="9" fill="#555">pet_id(FK)</text>
+<rect x="30" y="298" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="310" font-family="Arial" font-size="9" fill="#555">name</text>
+<rect x="30" y="316" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="328" font-family="Arial" font-size="9" fill="#555">rtsp_url</text>
+<rect x="30" y="334" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="346" font-family="Arial" font-size="9" fill="#555">status</text>
+<rect x="30" y="352" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="364" font-family="Arial" font-size="9" fill="#555">pet_id_assoc</text>
+<rect x="30" y="370" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="382" font-family="Arial" font-size="9" fill="#555">roi_polygon</text>
+<rect x="30" y="260" width="170" height="128" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="200" y1="200" x2="110" y2="328" stroke="#666" stroke-width="1.2"/>
+      <text x="150" y="210" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">1:N</text><rect x="240" y="240" width="170" height="20" rx="3" fill="#1F4E79"/><text x="325" y="254" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_health_record</text>
+<rect x="240" y="262" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="274" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="240" y="280" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="292" font-family="Arial" font-size="9" fill="#555">pet_id(FK)</text>
+<rect x="240" y="298" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="310" font-family="Arial" font-size="9" fill="#555">record_type</text>
+<rect x="240" y="316" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="328" font-family="Arial" font-size="9" fill="#555">content(JSONB)</text>
+<rect x="240" y="334" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="346" font-family="Arial" font-size="9" fill="#555">record_date</text>
+<rect x="240" y="352" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="364" font-family="Arial" font-size="9" fill="#555">attachment</text>
+<rect x="240" y="260" width="170" height="110" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="200" y1="200" x2="240" y2="240" stroke="#666" stroke-width="1.2"/>
+      <text x="220" y="215" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">1:N</text><rect x="540" y="240" width="160" height="20" rx="3" fill="#1F4E79"/><text x="620" y="254" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_alert</text>
+<rect x="540" y="262" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="274" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="540" y="280" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="292" font-family="Arial" font-size="9" fill="#555">pet_id(FK)</text>
+<rect x="540" y="298" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="310" font-family="Arial" font-size="9" fill="#555">pet_id(FK)</text>
+<rect x="540" y="316" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="328" font-family="Arial" font-size="9" fill="#555">alert_type</text>
+<rect x="540" y="334" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="346" font-family="Arial" font-size="9" fill="#555">message</text>
+<rect x="540" y="352" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="364" font-family="Arial" font-size="9" fill="#555">push_status</text>
+<rect x="540" y="370" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="382" font-family="Arial" font-size="9" fill="#555">push_channel</text>
+<rect x="540" y="388" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="400" font-family="Arial" font-size="9" fill="#555">triggered_at</text>
+<rect x="540" y="260" width="160" height="146" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="200" y1="240" x2="620" y2="328" stroke="#666" stroke-width="1.2"/>
+      <text x="370" y="232" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">触发</text><rect x="30" y="420" width="170" height="20" rx="3" fill="#1F4E79"/><text x="115" y="434" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_vip_order</text>
+<rect x="30" y="442" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="454" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="30" y="460" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="472" font-family="Arial" font-size="9" fill="#555">user_id(FK)</text>
+<rect x="30" y="478" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="490" font-family="Arial" font-size="9" fill="#555">plan_type</text>
+<rect x="30" y="496" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="508" font-family="Arial" font-size="9" fill="#555">amount</text>
+<rect x="30" y="514" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="526" font-family="Arial" font-size="9" fill="#555">pay_channel</text>
+<rect x="30" y="532" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="544" font-family="Arial" font-size="9" fill="#555">pay_status</text>
+<rect x="30" y="550" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="562" font-family="Arial" font-size="9" fill="#555">auto_renew</text>
+<rect x="30" y="568" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="40" y="580" font-family="Arial" font-size="9" fill="#555">transaction_id</text>
+<rect x="30" y="440" width="170" height="146" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="115" y1="200" x2="115" y2="420" stroke="#666" stroke-width="1.2"/>
+      <text x="130" y="300" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">1:N</text><rect x="240" y="420" width="170" height="20" rx="3" fill="#1F4E79"/><text x="325" y="434" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_feeding_plan</text>
+<rect x="240" y="442" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="454" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="240" y="460" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="472" font-family="Arial" font-size="9" fill="#555">pet_id(FK)</text>
+<rect x="240" y="478" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="490" font-family="Arial" font-size="9" fill="#555">version</text>
+<rect x="240" y="496" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="508" font-family="Arial" font-size="9" fill="#555">daily_feed_g</text>
+<rect x="240" y="514" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="526" font-family="Arial" font-size="9" fill="#555">feed_times</text>
+<rect x="240" y="532" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="544" font-family="Arial" font-size="9" fill="#555">exercise_min</text>
+<rect x="240" y="550" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="562" font-family="Arial" font-size="9" fill="#555">water_ml</text>
+<rect x="240" y="568" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="580" font-family="Arial" font-size="9" fill="#555">notes</text>
+<rect x="240" y="586" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="598" font-family="Arial" font-size="9" fill="#555">status</text>
+<rect x="240" y="440" width="170" height="164" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="355" y1="300" x2="470" y2="490" stroke="#666" stroke-width="1.2"/>
+      <text x="425" y="350" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">关联</text><rect x="540" y="420" width="160" height="20" rx="3" fill="#1F4E79"/><text x="620" y="434" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_behavior_trend</text>
+<rect x="540" y="442" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="454" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="540" y="460" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="472" font-family="Arial" font-size="9" fill="#555">pet_id(FK)</text>
+<rect x="540" y="478" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="490" font-family="Arial" font-size="9" fill="#555">period_type</text>
+<rect x="540" y="496" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="508" font-family="Arial" font-size="9" fill="#555">period_start</text>
+<rect x="540" y="514" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="550" y="526" font-family="Arial" font-size="9" fill="#555">metrics(JSONB)</text>
+<rect x="540" y="440" width="160" height="92" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><rect x="240" y="600" width="170" height="20" rx="3" fill="#1F4E79"/><text x="325" y="614" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_expert</text>
+<rect x="240" y="622" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="634" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="240" y="640" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="652" font-family="Arial" font-size="9" fill="#555">name</text>
+<rect x="240" y="658" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="670" font-family="Arial" font-size="9" fill="#555">title</text>
+<rect x="240" y="676" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="688" font-family="Arial" font-size="9" fill="#555">license</text>
+<rect x="240" y="694" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="706" font-family="Arial" font-size="9" fill="#555">specialty</text>
+<rect x="240" y="712" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="724" font-family="Arial" font-size="9" fill="#555">avatar_url</text>
+<rect x="240" y="730" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="742" font-family="Arial" font-size="9" fill="#555">intro</text>
+<rect x="240" y="748" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="760" font-family="Arial" font-size="9" fill="#555">status</text>
+<rect x="240" y="766" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="250" y="778" font-family="Arial" font-size="9" fill="#555">rating</text>
+<rect x="240" y="620" width="170" height="164" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><rect x="480" y="600" width="170" height="20" rx="3" fill="#1F4E79"/><text x="565" y="614" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_consultation</text>
+<rect x="480" y="622" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="490" y="634" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="480" y="640" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="490" y="652" font-family="Arial" font-size="9" fill="#555">user_id(FK)</text>
+<rect x="480" y="658" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="490" y="670" font-family="Arial" font-size="9" fill="#555">expert_id(FK)</text>
+<rect x="480" y="676" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="490" y="688" font-family="Arial" font-size="9" fill="#555">consult_type</text>
+<rect x="480" y="694" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="490" y="706" font-family="Arial" font-size="9" fill="#555">status</text>
+<rect x="480" y="712" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="490" y="724" font-family="Arial" font-size="9" fill="#555">duration_min</text>
+<rect x="480" y="730" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="490" y="742" font-family="Arial" font-size="9" fill="#555">fee</text>
+<rect x="480" y="748" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="490" y="760" font-family="Arial" font-size="9" fill="#555">rating</text>
+<rect x="480" y="620" width="170" height="146" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="410" y1="615" x2="480" y2="615" stroke="#666" stroke-width="1.2"/>
+      <text x="445" y="608" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">接单</text><rect x="710" y="600" width="160" height="20" rx="3" fill="#1F4E79"/><text x="790" y="614" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_consult_msg</text>
+<rect x="710" y="622" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="720" y="634" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="710" y="640" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="720" y="652" font-family="Arial" font-size="9" fill="#555">consultation_id(FK)</text>
+<rect x="710" y="658" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="720" y="670" font-family="Arial" font-size="9" fill="#555">sender_type</text>
+<rect x="710" y="676" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="720" y="688" font-family="Arial" font-size="9" fill="#555">msg_type</text>
+<rect x="710" y="694" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="720" y="706" font-family="Arial" font-size="9" fill="#555">content</text>
+<rect x="710" y="712" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="720" y="724" font-family="Arial" font-size="9" fill="#555">media_url</text>
+<rect x="710" y="620" width="160" height="110" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="650" y1="620" x2="710" y2="620" stroke="#666" stroke-width="1.2"/>
+      <text x="680" y="612" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">包含</text><rect x="340" y="770" width="170" height="20" rx="3" fill="#1F4E79"/><text x="425" y="784" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_admin</text>
+<rect x="340" y="792" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="350" y="804" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="340" y="810" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="350" y="822" font-family="Arial" font-size="9" fill="#555">username</text>
+<rect x="340" y="828" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="350" y="840" font-family="Arial" font-size="9" fill="#555">password</text>
+<rect x="340" y="846" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="350" y="858" font-family="Arial" font-size="9" fill="#555">role</text>
+<rect x="340" y="864" width="170" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="350" y="876" font-family="Arial" font-size="9" fill="#555">created_at</text>
+<rect x="340" y="790" width="170" height="92" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><rect x="570" y="770" width="160" height="20" rx="3" fill="#1F4E79"/><text x="650" y="784" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">t_audit_log</text>
+<rect x="570" y="792" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="580" y="804" font-family="Arial" font-size="9" fill="#555">id(PK)</text>
+<rect x="570" y="810" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="580" y="822" font-family="Arial" font-size="9" fill="#555">admin_id(FK)</text>
+<rect x="570" y="828" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="580" y="840" font-family="Arial" font-size="9" fill="#555">action</text>
+<rect x="570" y="846" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="580" y="858" font-family="Arial" font-size="9" fill="#555">target_type</text>
+<rect x="570" y="864" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="580" y="876" font-family="Arial" font-size="9" fill="#555">target_id</text>
+<rect x="570" y="882" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="580" y="894" font-family="Arial" font-size="9" fill="#555">detail(JSONB)</text>
+<rect x="570" y="900" width="160" height="16" fill="#fff" stroke="#ddd" stroke-width="0.5"/><text x="580" y="912" font-family="Arial" font-size="9" fill="#555">ip_address</text>
+<rect x="570" y="790" width="160" height="128" fill="none" stroke="#2E75B6" stroke-width="1.5" rx="2"/><line x1="510" y1="780" x2="570" y2="780" stroke="#666" stroke-width="1.2"/>
+      <text x="525" y="773" text-anchor="middle" font-family="Arial" font-size="8" fill="#1F4E79">记录</text></svg>

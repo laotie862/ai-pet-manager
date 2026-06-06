@@ -1,0 +1,21 @@
+@startuml
+title 普通用户 — 摄像头管理用例图
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "普通用户" as user
+
+rectangle "摄像头管理模块" {
+  usecase "UC-CA-01\n添加摄像头" as UC_CA01
+  usecase "UC-CA-02\n配置监控区域" as UC_CA02
+  usecase "UC-CA-03\n查看实时画面" as UC_CA03
+  usecase "UC-CA-04\n移除摄像头" as UC_CA04
+}
+
+user --> UC_CA01
+user --> UC_CA02
+user --> UC_CA03
+user --> UC_CA04
+
+@enduml

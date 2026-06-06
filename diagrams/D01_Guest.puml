@@ -1,0 +1,19 @@
+@startuml
+title 游客用例图
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "游客" as guest
+
+rectangle "AI宠物管家（前台）" {
+  usecase "UC-T-01\n浏览功能介绍" as UC_T01
+  usecase "UC-T-02\n查看示例报告" as UC_T02
+  usecase "UC-T-03\n注册账号" as UC_T03
+}
+
+guest --> UC_T01
+guest --> UC_T02
+guest --> UC_T03
+
+@enduml

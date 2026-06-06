@@ -1,0 +1,35 @@
+<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" width="980" height="620" viewBox="0 0 980 620">
+<defs><marker id="ar" markerWidth="8" markerHeight="6" refX="4" refY="3" orient="auto"><polygon points="0,0 8,3 0,6" fill="#2E75B6"/></marker>
+<marker id="arRed" markerWidth="8" markerHeight="6" refX="4" refY="3" orient="auto"><polygon points="0,0 8,3 0,6" fill="#E53935"/></marker>
+</defs>
+<rect width="980" height="620" fill="#fff"/>
+<text x="490" y="30" text-anchor="middle" font-family="Microsoft YaHei,Arial" font-size="16" font-weight="bold" fill="#1F4E79">核心处理流程 — 摄像头到告警推送链路</text><rect x="30" y="55" width="150" height="42" rx="6" fill="#FFF3E0" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="105" y="80" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">摄像头 RTSP 推流</text><line x1="180" y1="76" x2="225" y2="76" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="230" y="55" width="150" height="42" rx="6" fill="#E8F5E9" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="305" y="80" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">FFmpeg 抽帧
+(5秒/帧)</text><line x1="380" y1="76" x2="425" y2="76" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="430" y="55" width="150" height="42" rx="6" fill="#FCE4EC" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="505" y="80" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">Python CV 服务
+YOLO+行为分类</text><line x1="580" y1="76" x2="625" y2="76" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="630" y="55" width="150" height="42" rx="6" fill="#E0F2F1" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="705" y="80" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">行为事件
+发布 Kafka Topic</text><rect x="230" y="140" width="150" height="42" rx="6" fill="#FFCDD2" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="305" y="165" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">滑动窗口
+异常判定</text><line x1="380" y1="161" x2="425" y2="161" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="430" y="140" width="150" height="42" rx="6" fill="#E3F2FD" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="505" y="165" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">行为聚合
+去抖动 + 合并</text><line x1="580" y1="161" x2="625" y2="161" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="630" y="140" width="150" height="42" rx="6" fill="#E3F2FD" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="705" y="165" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">写入数据库
+t_behavior_event</text><line x1="705" y1="97" x2="705" y2="140" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arRed)"/><line x1="380" y1="97" x2="380" y2="140" stroke="#E53935" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="30" y="220" width="150" height="42" rx="6" fill="#FFCDD2" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="105" y="245" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">生成告警事件
+写入 t_alert</text><line x1="180" y1="241" x2="225" y2="241" stroke="#E53935" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="230" y="220" width="150" height="42" rx="6" fill="#F3E5F5" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="305" y="245" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">通知服务
+查询推送通道</text><line x1="380" y1="241" x2="425" y2="241" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="430" y="208" width="150" height="36" rx="6" fill="#E3F2FD" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="505" y="230" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">App 推送
+FCM / APNs</text><line x1="580" y1="226" x2="625" y2="226" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="630" y="208" width="150" height="36" rx="6" fill="#E3F2FD" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="705" y="230" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">用户点击通知
+App 查看详情</text><rect x="430" y="258" width="150" height="30" rx="6" fill="#FFF8E1" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="505" y="277" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">5分未读→微信追加</text><line x1="430" y1="244" x2="430" y2="258" stroke="#E53935" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="430" y="300" width="150" height="30" rx="6" fill="#FFF8E1" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="505" y="319" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">15分未读→短信(VIP)</text><rect x="430" y="360" width="150" height="42" rx="6" fill="#E8F5E9" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="505" y="385" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">XXL-JOB 定时任务
+每晚 22:00</text><line x1="580" y1="381" x2="625" y2="381" stroke="#4CAF50" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="630" y="360" width="150" height="42" rx="6" fill="#E8F5E9" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="705" y="385" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">LLM 生成
+每日行为报告</text><line x1="780" y1="381" x2="825" y2="381" stroke="#4CAF50" stroke-width="1.8" marker-end="url(#arRed)"/><rect x="830" y="360" width="130" height="42" rx="6" fill="#C8E6C9" stroke="#2E75B6" stroke-width="1.5"/>
+    <text x="895" y="385" text-anchor="middle" font-family="Arial" font-size="11" fill="#1a1a2e">推送日报
+App + 微信</text><line x1="505" y1="97" x2="505" y2="360" stroke="#4CAF50" stroke-width="1.8" marker-end="url(#arRed)"/><text x="755" y="88" font-family="Arial" font-size="9" fill="#2E75B6">行为事件流</text><text x="755" y="130" font-family="Arial" font-size="9" fill="#E53935">异常路径</text><text x="755" y="310" font-family="Arial" font-size="9" fill="#4CAF50">每日报告路径</text></svg>

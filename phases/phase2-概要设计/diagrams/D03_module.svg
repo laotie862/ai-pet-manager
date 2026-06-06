@@ -1,0 +1,48 @@
+<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" width="960" height="680" viewBox="0 0 960 680"><rect width="960" height="680" fill="#fff"/>
+<text x="480" y="28" text-anchor="middle" font-family="Microsoft YaHei,Arial" font-size="16" font-weight="bold" fill="#1F4E79">系统模块结构图</text><rect x="30" y="50" width="900" height="600" rx="8" fill="#F5F7FA" stroke="#1F4E79" stroke-width="2"/><rect x="30" y="50" width="160" height="25" rx="4" fill="#1F4E79"/><text x="110" y="68" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">pet-butler-server</text><rect x="55" y="92" width="150" height="65" rx="6" fill="#E3F2FD" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="67" y="114" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">auth-service</text>
+      <text x="67" y="140" font-family="Arial" font-size="9" fill="#666">认证授权
+JWT+RBAC</text><rect x="225" y="92" width="150" height="65" rx="6" fill="#E3F2FD" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="237" y="114" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">user-service</text>
+      <text x="237" y="140" font-family="Arial" font-size="9" fill="#666">用户管理
+VIP状态</text><rect x="395" y="92" width="150" height="65" rx="6" fill="#E8F5E9" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="407" y="114" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">pet-service</text>
+      <text x="407" y="140" font-family="Arial" font-size="9" fill="#666">宠物档案
+CRUD</text><rect x="55" y="180" width="150" height="65" rx="6" fill="#FFF3E0" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="67" y="202" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">device-service</text>
+      <text x="67" y="228" font-family="Arial" font-size="9" fill="#666">设备管理
+RTSP拉流</text><rect x="225" y="180" width="150" height="65" rx="6" fill="#FFF3E0" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="237" y="202" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">behavior-service</text>
+      <text x="237" y="228" font-family="Arial" font-size="9" fill="#666">行为分析
+事件+告警</text><rect x="395" y="180" width="150" height="65" rx="6" fill="#FCE4EC" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="407" y="202" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">health-service</text>
+      <text x="407" y="228" font-family="Arial" font-size="9" fill="#666">健康记录
+疫苗/驱虫</text><rect x="55" y="268" width="150" height="65" rx="6" fill="#F3E5F5" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="67" y="290" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">reminder-service</text>
+      <text x="67" y="316" font-family="Arial" font-size="9" fill="#666">智能提醒
+推送配置</text><rect x="225" y="268" width="150" height="65" rx="6" fill="#E0F2F1" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="237" y="290" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">feeding-service</text>
+      <text x="237" y="316" font-family="Arial" font-size="9" fill="#666">AI饲养
+建议计划</text><rect x="395" y="268" width="150" height="65" rx="6" fill="#E0F2F1" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="407" y="290" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">trend-service</text>
+      <text x="407" y="316" font-family="Arial" font-size="9" fill="#666">趋势分析
+健康预警</text><rect x="565" y="92" width="150" height="65" rx="6" fill="#FFF9C4" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="577" y="114" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">expert-service</text>
+      <text x="577" y="140" font-family="Arial" font-size="9" fill="#666">专家咨询
+视频通话</text><rect x="565" y="180" width="150" height="65" rx="6" fill="#E8F5E9" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="577" y="202" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">news-service</text>
+      <text x="577" y="228" font-family="Arial" font-size="9" fill="#666">资讯管理
+品种百科</text><rect x="565" y="268" width="150" height="65" rx="6" fill="#FFF9C4" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="577" y="290" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">vip-service</text>
+      <text x="577" y="316" font-family="Arial" font-size="9" fill="#666">VIP支付
+续费管理</text><rect x="55" y="358" width="150" height="65" rx="6" fill="#ECEFF1" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="67" y="380" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">storage-service</text>
+      <text x="67" y="406" font-family="Arial" font-size="9" fill="#666">文件存储
+MinIO/OSS</text><rect x="225" y="358" width="150" height="65" rx="6" fill="#ECEFF1" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="237" y="380" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">notification</text>
+      <text x="237" y="406" font-family="Arial" font-size="9" fill="#666">消息推送
+FCM/微信</text><rect x="395" y="358" width="150" height="65" rx="6" fill="#ECEFF1" stroke="#B0BEC5" stroke-width="1.2"/>
+      <text x="407" y="380" font-family="Arial" font-size="12" font-weight="bold" fill="#1F4E79">admin-service</text>
+      <text x="407" y="406" font-family="Arial" font-size="9" fill="#666">后台管理
+封禁/统计</text><rect x="565" y="358" width="350" height="110" rx="6" fill="none" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="6,3"/>
+    <rect x="575" y="348" width="80" height="18" rx="3" fill="#4CAF50"/><text x="615" y="361" text-anchor="middle" font-family="Arial" font-size="10" fill="#fff">外部系统</text><text x="580" y="382" font-family="Arial" font-size="9" fill="#333">Python CV Service (GPU推理)</text><text x="580" y="398" font-family="Arial" font-size="9" fill="#333">企业微信 API (消息推送)</text><text x="580" y="414" font-family="Arial" font-size="9" fill="#333">FCM/APNs (移动推送)</text><text x="580" y="430" font-family="Arial" font-size="9" fill="#333">LLM API (报告+建议生成)</text><text x="580" y="446" font-family="Arial" font-size="9" fill="#333">微信支付/支付宝API</text><rect x="55" y="478" width="860" height="50" rx="6" fill="#ECEFF1" stroke="#90A4AE" stroke-width="1"/><text x="485" y="508" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#455A64">公共基础层 — common(统一返回体/异常处理) · config(Security/JPA/Redis/CORS) · utils(ID生成/文件/加密)</text></svg>
