@@ -1,0 +1,6 @@
+target/*
+!target/*.jar
+.idea
+.mvn/wrapper/maven-wrapper.jar
+*.iml
+HELP.md
