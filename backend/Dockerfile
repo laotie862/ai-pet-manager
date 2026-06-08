@@ -2,6 +2,7 @@ ARG JAVA_VERSION=25
 FROM eclipse-temurin:${JAVA_VERSION}-jre-alpine
 
 WORKDIR /app
+RUN apk add --no-cache ffmpeg
 COPY target/demo-*.jar app.jar
 
 EXPOSE 8080

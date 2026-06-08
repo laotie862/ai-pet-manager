@@ -1,0 +1,7 @@
+ALTER TABLE t_device ADD COLUMN IF NOT EXISTS rtsp_username VARCHAR(128);
+ALTER TABLE t_device ADD COLUMN IF NOT EXISTS rtsp_password_cipher TEXT;
+ALTER TABLE t_device ADD COLUMN IF NOT EXISTS stream_key VARCHAR(64);
+ALTER TABLE t_device ADD COLUMN IF NOT EXISTS last_heartbeat_at TIMESTAMPTZ;
+ALTER TABLE t_device ADD COLUMN IF NOT EXISTS last_error VARCHAR(1024);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uk_device_stream_key ON t_device (stream_key);
