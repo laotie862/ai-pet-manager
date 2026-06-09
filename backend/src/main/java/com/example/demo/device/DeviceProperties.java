@@ -10,6 +10,7 @@ public class DeviceProperties {
     private int connectionTestTimeoutSeconds = 5;
     private boolean connectionTestEnabled = true;
     private boolean mockRtspEnabled = true;
+    private boolean loopVideoEnabled = true;
     private boolean autoStartEnabled = true;
     private int streamFrameRate = 2;
     private int streamWidth = 640;
@@ -65,6 +66,14 @@ public class DeviceProperties {
 
     public void setMockRtspEnabled(boolean mockRtspEnabled) {
         this.mockRtspEnabled = mockRtspEnabled;
+    }
+
+    public boolean isLoopVideoEnabled() {
+        return loopVideoEnabled;
+    }
+
+    public void setLoopVideoEnabled(boolean loopVideoEnabled) {
+        this.loopVideoEnabled = loopVideoEnabled;
     }
 
     public boolean isAutoStartEnabled() {

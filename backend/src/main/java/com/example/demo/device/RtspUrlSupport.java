@@ -20,18 +20,39 @@ public class RtspUrlSupport {
 
     public URI validate(String rtspUrl) {
         try {
+            if (!StringUtils.hasText(rtspUrl)) {
+                throw new BusinessException(ErrorCode.BAD_REQUEST, "Video source URL is required");
+            }
             URI uri = URI.create(rtspUrl.trim());
-            if (!"rtsp".equalsIgnoreCase(uri.getScheme()) || !StringUtils.hasText(uri.getHost())) {
-                throw new BusinessException(ErrorCode.BAD_REQUEST, "RTSP URL must start with rtsp:// and include host");
+            String scheme = uri.getScheme();
+            if ("rtsp".equalsIgnoreCase(scheme)) {
+                if (!StringUtils.hasText(uri.getHost())) {
+                    throw new BusinessException(ErrorCode.BAD_REQUEST, "RTSP URL must include host");
+                }
+                if (StringUtils.hasText(uri.getUserInfo())) {
+                    throw new BusinessException(ErrorCode.BAD_REQUEST, "Use username and password fields instead of embedding credentials in RTSP URL");
+                }
+                return uri;
             }
-            if (StringUtils.hasText(uri.getUserInfo())) {
-                throw new BusinessException(ErrorCode.BAD_REQUEST, "Use username and password fields instead of embedding credentials in RTSP URL");
+
+            if ("video".equalsIgnoreCase(scheme)) {
+                if (!properties.isLoopVideoEnabled()) {
+                    throw new BusinessException(ErrorCode.BAD_REQUEST, "Loop video source is disabled");
+                }
+                if (!"loop".equalsIgnoreCase(uri.getHost())) {
+                    throw new BusinessException(ErrorCode.BAD_REQUEST, "Loop video URL must start with video://loop");
+                }
+                if (!StringUtils.hasText(queryParameter(uri, "path"))) {
+                    throw new BusinessException(ErrorCode.BAD_REQUEST, "Loop video URL must include path query parameter");
+                }
+                return uri;
             }
-            return uri;
+
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "Video source URL must start with rtsp:// or video://loop");
         } catch (BusinessException exception) {
             throw exception;
         } catch (Exception exception) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, "Invalid RTSP URL");
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "Invalid video source URL");
         }
     }
 
@@ -46,8 +67,26 @@ public class RtspUrlSupport {
 
     public boolean isLocalWebcamSource(String rtspUrl) {
         URI uri = validate(rtspUrl);
+        if (!"rtsp".equalsIgnoreCase(uri.getScheme())) {
+            return false;
+        }
         String host = uri.getHost().toLowerCase(Locale.ROOT);
         return "webcam".equals(host) || "camera".equals(host) || "localcam".equals(host);
+    }
+
+    public boolean isLoopVideoSource(String rtspUrl) {
+        if (!properties.isLoopVideoEnabled()) {
+            return false;
+        }
+        URI uri = validate(rtspUrl);
+        return "video".equalsIgnoreCase(uri.getScheme()) && "loop".equalsIgnoreCase(uri.getHost());
+    }
+
+    public String loopVideoPath(String rtspUrl) {
+        if (!isLoopVideoSource(rtspUrl)) {
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "Not a loop video source");
+        }
+        return queryParameter(rtspUrl, "path").trim();
     }
 
     public String withCredentials(String rtspUrl, String username, String password) {
@@ -73,6 +112,10 @@ public class RtspUrlSupport {
 
     public String queryParameter(String rtspUrl, String key) {
         URI uri = validate(rtspUrl);
+        return queryParameter(uri, key);
+    }
+
+    private String queryParameter(URI uri, String key) {
         if (!StringUtils.hasText(uri.getQuery())) {
             return null;
         }

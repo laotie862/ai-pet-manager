@@ -136,6 +136,12 @@ public class DeviceStreamManager {
                     + Math.max(1, properties.getStreamFrameRate()));
         } else if (rtspUrlSupport.isLocalWebcamSource(device.rtspUrl())) {
             localWebcamSupport.appendInputArguments(command, device.rtspUrl());
+        } else if (rtspUrlSupport.isLoopVideoSource(device.rtspUrl())) {
+            command.add("-stream_loop");
+            command.add("-1");
+            command.add("-re");
+            command.add("-i");
+            command.add(rtspUrlSupport.loopVideoPath(device.rtspUrl()));
         } else {
             command.add("-rtsp_transport");
             command.add("tcp");

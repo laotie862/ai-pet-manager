@@ -32,6 +32,8 @@ public class BehaviorAnalysisService {
     private final DeviceStreamManager streamManager;
     private final CvInferenceClient cvInferenceClient;
     private final BehaviorRepository behaviorRepository;
+    private final BehaviorSampleCaptureService sampleCaptureService;
+    private final BehaviorFrameChangeDetector frameChangeDetector;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Map<Long, DeviceBehaviorState> states = new ConcurrentHashMap<>();
 
@@ -40,18 +42,22 @@ public class BehaviorAnalysisService {
             DeviceRepository deviceRepository,
             DeviceStreamManager streamManager,
             CvInferenceClient cvInferenceClient,
-            BehaviorRepository behaviorRepository
+            BehaviorRepository behaviorRepository,
+            BehaviorSampleCaptureService sampleCaptureService,
+            BehaviorFrameChangeDetector frameChangeDetector
     ) {
         this.properties = properties;
         this.deviceRepository = deviceRepository;
         this.streamManager = streamManager;
         this.cvInferenceClient = cvInferenceClient;
         this.behaviorRepository = behaviorRepository;
+        this.sampleCaptureService = sampleCaptureService;
+        this.frameChangeDetector = frameChangeDetector;
     }
 
     @Scheduled(
-            fixedDelayString = "${petcare.behavior.analysis-interval-ms:5000}",
-            initialDelayString = "${petcare.behavior.analysis-interval-ms:5000}"
+            fixedDelayString = "${petcare.behavior.analysis-interval-ms:30000}",
+            initialDelayString = "${petcare.behavior.analysis-interval-ms:30000}"
     )
     public void analyzeAssignedDevices() {
         if (!properties.isAnalysisEnabled()) {
@@ -65,42 +71,97 @@ public class BehaviorAnalysisService {
     private void analyze(DeviceRecord device) {
         streamManager.latestFrame(device.id()).ifPresent(frame -> {
             try {
+                DeviceBehaviorState state = states.computeIfAbsent(device.id(), id -> new DeviceBehaviorState());
+                OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
+                if (shouldSkipApi(device, state, frame, now)) {
+                    return;
+                }
+                state.lastApiCalledAt = now;
                 BehaviorDetectionResponse detection = cvInferenceClient.detect(new BehaviorDetectionRequest(
                         Base64.getEncoder().encodeToString(frame),
                         String.valueOf(device.id()),
                         readRoi(device.roiPolygonJson())
                 ));
-                acceptDetection(device, detection);
+                acceptDetection(device, frame, detection, state, now);
             } catch (Exception exception) {
                 log.warn("Behavior analysis failed for device {}", device.id(), exception);
             }
         });
     }
 
-    private void acceptDetection(DeviceRecord device, BehaviorDetectionResponse detection) {
+    private boolean shouldSkipApi(
+            DeviceRecord device,
+            DeviceBehaviorState state,
+            byte[] frame,
+            OffsetDateTime now
+    ) {
+        if (!properties.isStaticSkipEnabled()) {
+            return false;
+        }
+
+        BehaviorFrameChangeDetector.FrameChange change = frameChangeDetector.compare(state.lastFrameSignature, frame);
+        if (!change.available()) {
+            return false;
+        }
+        state.lastFrameSignature = change.signature();
+        state.lastMotionScore = change.motionScore();
+
+        if (state.lastApiCalledAt == null) {
+            return false;
+        }
+
+        long secondsSinceLastApi = Duration.between(state.lastApiCalledAt, now).toSeconds();
+        if (secondsSinceLastApi >= Math.max(1, properties.getMaxStaticApiIntervalSeconds())) {
+            return false;
+        }
+        if (secondsSinceLastApi < Math.max(1, properties.getMinApiIntervalSeconds())) {
+            return true;
+        }
+
+        boolean staticFrame = change.motionScore() < Math.max(0.0, properties.getMotionThreshold());
+        if (staticFrame) {
+            log.debug(
+                    "Skip behavior API for static frame. deviceId={}, motionScore={}, threshold={}",
+                    device.id(),
+                    change.motionScore(),
+                    properties.getMotionThreshold()
+            );
+        }
+        return staticFrame;
+    }
+
+    private void acceptDetection(
+            DeviceRecord device,
+            byte[] frame,
+            BehaviorDetectionResponse detection,
+            DeviceBehaviorState state,
+            OffsetDateTime now
+    ) {
         String behavior = detection.normalizedBehavior(properties.getMinConfidence());
-        OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
-        DeviceBehaviorState state = states.computeIfAbsent(device.id(), id -> new DeviceBehaviorState());
 
         if (!behavior.equals(state.candidateBehavior)) {
             state.candidateBehavior = behavior;
             state.candidateCount = 1;
             state.candidateStartedAt = now;
+            sampleCaptureService.capture(device, frame, detection, behavior, null, now);
             return;
         }
 
         state.candidateCount++;
         if (state.candidateCount < Math.max(1, properties.getStableFrameCount())) {
+            sampleCaptureService.capture(device, frame, detection, behavior, null, now);
             return;
         }
         if (behavior.equals(state.activeBehavior)) {
+            sampleCaptureService.capture(device, frame, detection, behavior, state.activeEventId, now);
             return;
         }
 
-        switchBehavior(device, state, detection, behavior, now);
+        Long eventId = switchBehavior(device, state, detection, behavior, now);
+        sampleCaptureService.capture(device, frame, detection, behavior, eventId, now);
     }
 
-    private void switchBehavior(
+    private Long switchBehavior(
             DeviceRecord device,
             DeviceBehaviorState state,
             BehaviorDetectionResponse detection,
@@ -113,7 +174,7 @@ public class BehaviorAnalysisService {
         if ("uncertain".equals(nextBehavior)) {
             state.activeEventId = null;
             state.activeStartedAt = null;
-            return;
+            return null;
         }
 
         OffsetDateTime startedAt = state.candidateStartedAt == null ? now : state.candidateStartedAt;
@@ -127,6 +188,7 @@ public class BehaviorAnalysisService {
                 detection.modelVersion()
         );
         state.activeStartedAt = startedAt;
+        return state.activeEventId;
     }
 
     private void closeActiveEvent(DeviceRecord device, DeviceBehaviorState state, OffsetDateTime endedAt) {
@@ -165,5 +227,8 @@ public class BehaviorAnalysisService {
         private String activeBehavior;
         private Long activeEventId;
         private OffsetDateTime activeStartedAt;
+        private double[] lastFrameSignature;
+        private OffsetDateTime lastApiCalledAt;
+        private double lastMotionScore;
     }
 }

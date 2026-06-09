@@ -1,9 +1,12 @@
 package com.example.demo.behavior;
 
 import com.example.demo.common.api.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,9 +18,11 @@ import java.util.List;
 @RequestMapping("/api/behavior/pets/{petId}")
 public class BehaviorController {
     private final BehaviorService behaviorService;
+    private final BehaviorSampleService behaviorSampleService;
 
-    public BehaviorController(BehaviorService behaviorService) {
+    public BehaviorController(BehaviorService behaviorService, BehaviorSampleService behaviorSampleService) {
         this.behaviorService = behaviorService;
+        this.behaviorSampleService = behaviorSampleService;
     }
 
     @GetMapping("/current")
@@ -43,5 +48,23 @@ public class BehaviorController {
             LocalDate date
     ) {
         return ApiResponse.success(behaviorService.summary(petId, date));
+    }
+
+    @GetMapping("/samples")
+    public ApiResponse<List<BehaviorSampleRecord>> samples(
+            @PathVariable Long petId,
+            @RequestParam(defaultValue = "50") int limit
+    ) {
+        return ApiResponse.success(behaviorSampleService.listByPet(petId, limit));
+    }
+
+    @PatchMapping("/samples/{sampleId}/review")
+    public ApiResponse<Void> reviewSample(
+            @PathVariable Long petId,
+            @PathVariable Long sampleId,
+            @Valid @RequestBody BehaviorSampleReviewRequest request
+    ) {
+        behaviorSampleService.review(petId, sampleId, request.finalBehavior());
+        return ApiResponse.success(null);
     }
 }

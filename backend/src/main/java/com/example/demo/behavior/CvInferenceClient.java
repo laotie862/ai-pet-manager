@@ -32,7 +32,7 @@ public class CvInferenceClient {
             String body = objectMapper.writeValueAsString(request);
             HttpRequest httpRequest = HttpRequest.newBuilder()
                     .uri(URI.create(properties.getCvBaseUrl().replaceAll("/+$", "") + "/cv/detect"))
-                    .timeout(Duration.ofSeconds(5))
+                    .timeout(Duration.ofSeconds(Math.max(1, properties.getCvTimeoutSeconds())))
                     .version(HttpClient.Version.HTTP_1_1)
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
