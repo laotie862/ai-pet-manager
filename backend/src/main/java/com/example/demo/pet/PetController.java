@@ -20,9 +20,11 @@ import java.util.List;
 @RequestMapping("/api/pets")
 public class PetController {
     private final PetService petService;
+    private final PetIdentityService petIdentityService;
 
-    public PetController(PetService petService) {
+    public PetController(PetService petService, PetIdentityService petIdentityService) {
         this.petService = petService;
+        this.petIdentityService = petIdentityService;
     }
 
     @GetMapping
@@ -48,6 +50,30 @@ public class PetController {
     @PostMapping(path = "/{petId}/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<PetResponse> uploadPhoto(@PathVariable Long petId, @RequestPart("file") MultipartFile file) {
         return ApiResponse.success(petService.uploadPhoto(petId, file));
+    }
+
+    @PostMapping(path = "/{petId}/identity-photos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<PetIdentityPhotoResponse> uploadIdentityPhoto(
+            @PathVariable Long petId,
+            @RequestPart("file") MultipartFile file
+    ) {
+        return ApiResponse.success(petIdentityService.uploadIdentityPhoto(petId, file));
+    }
+
+    @GetMapping("/{petId}/identity-photos")
+    public ApiResponse<List<PetIdentityPhotoResponse>> listIdentityPhotos(@PathVariable Long petId) {
+        return ApiResponse.success(petIdentityService.listIdentityPhotos(petId));
+    }
+
+    @DeleteMapping("/{petId}/identity-photos/{photoId}")
+    public ApiResponse<Void> deleteIdentityPhoto(@PathVariable Long petId, @PathVariable Long photoId) {
+        petIdentityService.deleteIdentityPhoto(petId, photoId);
+        return ApiResponse.success();
+    }
+
+    @PostMapping(path = "/identity/match", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<PetIdentityMatchResponse> matchIdentity(@RequestPart("file") MultipartFile file) {
+        return ApiResponse.success(petIdentityService.matchIdentity(file));
     }
 
     @DeleteMapping("/{petId}")

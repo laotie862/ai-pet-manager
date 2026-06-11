@@ -86,13 +86,16 @@ public class BehaviorAnalysisService {
             state.candidateBehavior = behavior;
             state.candidateCount = 1;
             state.candidateStartedAt = now;
-            return;
+            if (Math.max(1, properties.getStableFrameCount()) > 1) {
+                return;
+            }
+        } else {
+            state.candidateCount++;
+            if (state.candidateCount < Math.max(1, properties.getStableFrameCount())) {
+                return;
+            }
         }
 
-        state.candidateCount++;
-        if (state.candidateCount < Math.max(1, properties.getStableFrameCount())) {
-            return;
-        }
         if (behavior.equals(state.activeBehavior)) {
             return;
         }
