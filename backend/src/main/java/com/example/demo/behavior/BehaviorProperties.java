@@ -7,6 +7,7 @@ public class BehaviorProperties {
     private boolean analysisEnabled = true;
     private long analysisIntervalMs = 5000;
     private String cvBaseUrl = "http://localhost:8000";
+    private int cvTimeoutSeconds = 20;
     private double minConfidence = 0.5;
     private int stableFrameCount = 3;
     private int minEventDurationSeconds = 5;
@@ -33,6 +34,14 @@ public class BehaviorProperties {
 
     public void setCvBaseUrl(String cvBaseUrl) {
         this.cvBaseUrl = cvBaseUrl;
+    }
+
+    public int getCvTimeoutSeconds() {
+        return cvTimeoutSeconds;
+    }
+
+    public void setCvTimeoutSeconds(int cvTimeoutSeconds) {
+        this.cvTimeoutSeconds = cvTimeoutSeconds;
     }
 
     public double getMinConfidence() {

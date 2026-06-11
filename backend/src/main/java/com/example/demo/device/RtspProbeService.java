@@ -30,6 +30,10 @@ public class RtspProbeService {
         if (!properties.isConnectionTestEnabled() || rtspUrlSupport.isMockSource(rtspUrl)) {
             return;
         }
+        if (rtspUrlSupport.isLoopVideoSource(rtspUrl)) {
+            assertLoopVideoReachable(rtspUrl);
+            return;
+        }
         if (rtspUrlSupport.isLocalWebcamSource(rtspUrl)) {
             localWebcamSupport.assertReachable(rtspUrl);
             return;
@@ -75,5 +79,39 @@ public class RtspProbeService {
         }
         String value = output.length() > 160 ? output.substring(0, 160) : output;
         return ": " + value;
+    }
+
+    private void assertLoopVideoReachable(String rtspUrl) {
+        String inputUrl = rtspUrlSupport.loopVideoPath(rtspUrl);
+        List<String> command = List.of(
+                properties.getFfprobePath(),
+                "-v", "error",
+                "-i", inputUrl,
+                "-show_entries", "stream=codec_type",
+                "-of", "csv=p=0"
+        );
+
+        try {
+            Process process = new ProcessBuilder(command)
+                    .redirectErrorStream(true)
+                    .start();
+            boolean completed = process.waitFor(properties.getConnectionTestTimeoutSeconds(), TimeUnit.SECONDS);
+            if (!completed) {
+                process.destroyForcibly();
+                throw new BusinessException(ErrorCode.BAD_REQUEST, "Video connection timed out after "
+                        + properties.getConnectionTestTimeoutSeconds() + " seconds");
+            }
+            String output = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8).trim();
+            if (process.exitValue() != 0 || !output.contains("video")) {
+                throw new BusinessException(ErrorCode.BAD_REQUEST, "Video connection failed" + detail(output));
+            }
+        } catch (BusinessException exception) {
+            throw exception;
+        } catch (IOException exception) {
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "FFprobe is not available for video connection test");
+        } catch (InterruptedException exception) {
+            Thread.currentThread().interrupt();
+            throw new BusinessException(ErrorCode.INTERNAL_ERROR, "Video connection test interrupted");
+        }
     }
 }

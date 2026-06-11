@@ -127,7 +127,13 @@ public class DeviceStreamManager {
         command.add("-loglevel");
         command.add("error");
 
-        if (rtspUrlSupport.isMockSource(device.rtspUrl())) {
+        if (rtspUrlSupport.isLoopVideoSource(device.rtspUrl())) {
+            command.add("-stream_loop");
+            command.add("-1");
+            command.add("-re");
+            command.add("-i");
+            command.add(rtspUrlSupport.loopVideoPath(device.rtspUrl()));
+        } else if (rtspUrlSupport.isMockSource(device.rtspUrl())) {
             command.add("-f");
             command.add("lavfi");
             command.add("-re");
