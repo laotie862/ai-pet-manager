@@ -68,6 +68,4 @@ docker compose up -d
 | feature/documents | 变更管理文档 |
 | feature/training | 训练管道+数据集 |
 
-## License
 
-MIT
