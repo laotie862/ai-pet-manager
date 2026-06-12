@@ -1,162 +1,161 @@
 package com.example.demo.pet;
 
-import com.example.demo.behavior.CvEmbeddingRequest;
-import com.example.demo.behavior.CvEmbeddingResponse;
-import com.example.demo.behavior.CvInferenceClient;
 import com.example.demo.common.api.ErrorCode;
 import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.security.SecurityUtils;
 import com.example.demo.storage.ObjectStorageService;
 import com.example.demo.storage.StoredObject;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class PetIdentityService {
-    // First-pass threshold for local color/spatial embeddings; tune after real pet photos are collected.
-    private static final double IDENTITY_MATCH_THRESHOLD = 0.78;
+    private static final double MATCH_THRESHOLD = 0.90;
 
     private final PetRepository petRepository;
-    private final PetIdentityPhotoRepository identityPhotoRepository;
+    private final PetIdentityRepository identityRepository;
     private final ObjectStorageService objectStorageService;
-    private final CvInferenceClient cvInferenceClient;
+    private final PetCvClient petCvClient;
+    private final ObjectMapper objectMapper;
 
     public PetIdentityService(
             PetRepository petRepository,
-            PetIdentityPhotoRepository identityPhotoRepository,
+            PetIdentityRepository identityRepository,
             ObjectStorageService objectStorageService,
-            CvInferenceClient cvInferenceClient
+            PetCvClient petCvClient
     ) {
         this.petRepository = petRepository;
-        this.identityPhotoRepository = identityPhotoRepository;
+        this.identityRepository = identityRepository;
         this.objectStorageService = objectStorageService;
-        this.cvInferenceClient = cvInferenceClient;
+        this.petCvClient = petCvClient;
+        this.objectMapper = new ObjectMapper();
     }
 
-    @Transactional
-    public PetIdentityPhotoResponse uploadIdentityPhoto(Long petId, MultipartFile file) {
-        Long userId = SecurityUtils.currentUser().id();
-        ensurePetBelongsToUser(petId, userId);
-
-        byte[] imageBytes = readBytes(file);
-        CvEmbeddingResponse embeddingResponse = embedImage(imageBytes, "Identity photo cannot be embedded");
-        StoredObject storedObject = objectStorageService.uploadPetPhoto(userId, petId, file);
-
-        PetIdentityPhotoRecord record = identityPhotoRepository.create(
-                petId,
-                storedObject.objectName(),
-                storedObject.url(),
-                embeddingResponse.embedding(),
-                embeddingResponse.modelVersion()
-        );
-        return PetIdentityPhotoResponse.from(record);
-    }
-
-    public List<PetIdentityPhotoResponse> listIdentityPhotos(Long petId) {
-        Long userId = SecurityUtils.currentUser().id();
-        ensurePetBelongsToUser(petId, userId);
-        return identityPhotoRepository.listByPet(petId).stream()
-                .map(PetIdentityPhotoResponse::from)
+    public List<PetIdentityPhotoResponse> list(Long petId) {
+        ensureOwnedPet(petId);
+        return identityRepository.listByPet(petId).stream()
+                .map(photo -> PetIdentityPhotoResponse.from(photo, readEmbedding(photo).size()))
                 .toList();
     }
 
     @Transactional
-    public void deleteIdentityPhoto(Long petId, Long photoId) {
+    public PetIdentityPhotoResponse upload(Long petId, MultipartFile file) {
         Long userId = SecurityUtils.currentUser().id();
-        ensurePetBelongsToUser(petId, userId);
-        int deleted = identityPhotoRepository.delete(photoId, petId);
+        ensureOwnedPet(petId);
+        IdentityEmbeddingResponse embedding = petCvClient.embed(file);
+        if (embedding.embedding() == null || embedding.embedding().isEmpty()) {
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "无法从照片提取宠物身份特征");
+        }
+
+        StoredObject storedObject = objectStorageService.uploadPetIdentityPhoto(userId, petId, file);
+        String embeddingJson = writeEmbedding(embedding.embedding());
+        Long photoId = identityRepository.create(
+                petId,
+                storedObject.objectName(),
+                storedObject.url(),
+                embeddingJson,
+                embedding.modelVersion()
+        );
+        PetIdentityPhotoRecord saved = identityRepository.listByPet(petId).stream()
+                .filter(photo -> photo.id().equals(photoId))
+                .findFirst()
+                .orElseThrow(() -> new BusinessException(ErrorCode.INTERNAL_ERROR, "Identity photo save failed"));
+        return PetIdentityPhotoResponse.from(saved, embedding.embedding().size());
+    }
+
+    @Transactional
+    public void delete(Long petId, Long photoId) {
+        ensureOwnedPet(petId);
+        int deleted = identityRepository.delete(petId, photoId);
         if (deleted == 0) {
             throw new BusinessException(ErrorCode.NOT_FOUND, "Identity photo not found");
         }
     }
 
-    public PetIdentityMatchResponse matchIdentity(MultipartFile file) {
+    public PetIdentityMatchResponse match(MultipartFile file) {
         Long userId = SecurityUtils.currentUser().id();
-        CvEmbeddingResponse embeddingResponse = embedImage(readBytes(file), "Image cannot be embedded");
-
-        List<PetIdentityPhotoRecord> candidates = identityPhotoRepository.listByUser(userId);
-        if (candidates.isEmpty()) {
-            throw new BusinessException(ErrorCode.NOT_FOUND, "No pet identity photos found");
+        IdentityEmbeddingResponse target = petCvClient.embed(file);
+        if (target.embedding() == null || target.embedding().isEmpty()) {
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "无法从测试图片提取宠物身份特征");
         }
 
-        return candidates.stream()
-                .map(candidate -> toMatchResponse(candidate, embeddingResponse.embedding(), userId))
-                .max(Comparator.comparingDouble(PetIdentityMatchResponse::similarity))
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND, "No pet identity photos found"));
+        return identityRepository.listByUser(userId).stream()
+                .map(photo -> toCandidate(photo, target.embedding()))
+                .max(Comparator.comparingDouble(MatchCandidate::similarity))
+                .map(candidate -> toResponse(userId, candidate))
+                .orElseThrow(() -> new BusinessException(ErrorCode.BAD_REQUEST, "请先上传宠物身份照片"));
     }
 
-    private CvEmbeddingResponse embedImage(byte[] imageBytes, String emptyEmbeddingMessage) {
-        CvEmbeddingResponse embeddingResponse = cvInferenceClient.embed(
-                new CvEmbeddingRequest(Base64.getEncoder().encodeToString(imageBytes))
-        );
-        if (embeddingResponse.embedding() == null || embeddingResponse.embedding().isEmpty()) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, emptyEmbeddingMessage);
-        }
-        return embeddingResponse;
-    }
-
-    private PetIdentityMatchResponse toMatchResponse(
-            PetIdentityPhotoRecord candidate,
-            List<Double> queryEmbedding,
-            Long userId
-    ) {
-        PetRecord pet = petRepository.findByIdAndUser(candidate.petId(), userId)
+    private PetIdentityMatchResponse toResponse(Long userId, MatchCandidate candidate) {
+        PetRecord pet = petRepository.findByIdAndUser(candidate.photo().petId(), userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND, "Pet not found"));
-        double similarity = cosineSimilarity(queryEmbedding, candidate.embedding());
         return new PetIdentityMatchResponse(
                 pet.id(),
                 pet.name(),
-                candidate.id(),
-                Math.round(similarity * 10000.0) / 10000.0,
-                similarity >= IDENTITY_MATCH_THRESHOLD
+                candidate.photo().id(),
+                round(candidate.similarity()),
+                candidate.similarity() >= MATCH_THRESHOLD
         );
     }
 
-    private double cosineSimilarity(List<Double> left, List<Double> right) {
-        if (left == null || right == null || left.isEmpty() || right.isEmpty()) {
-            return 0.0;
+    private MatchCandidate toCandidate(PetIdentityPhotoRecord photo, List<Double> targetEmbedding) {
+        return new MatchCandidate(photo, cosineSimilarity(readEmbedding(photo), targetEmbedding));
+    }
+
+    private void ensureOwnedPet(Long petId) {
+        Long userId = SecurityUtils.currentUser().id();
+        petRepository.findByIdAndUser(petId, userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND, "Pet not found"));
+    }
+
+    private List<Double> readEmbedding(PetIdentityPhotoRecord photo) {
+        try {
+            return objectMapper.readValue(photo.embeddingJson(), new TypeReference<>() {
+            });
+        } catch (Exception exception) {
+            throw new BusinessException(ErrorCode.INTERNAL_ERROR, "Identity embedding is invalid");
         }
+    }
+
+    private String writeEmbedding(List<Double> embedding) {
+        try {
+            return objectMapper.writeValueAsString(embedding);
+        } catch (Exception exception) {
+            throw new BusinessException(ErrorCode.INTERNAL_ERROR, "Identity embedding save failed");
+        }
+    }
+
+    private double cosineSimilarity(List<Double> left, List<Double> right) {
         int size = Math.min(left.size(), right.size());
-        double dot = 0.0;
-        double leftNorm = 0.0;
-        double rightNorm = 0.0;
-        for (int i = 0; i < size; i++) {
-            double leftValue = safeDouble(left.get(i));
-            double rightValue = safeDouble(right.get(i));
+        if (size == 0) {
+            return 0;
+        }
+        double dot = 0;
+        double leftNorm = 0;
+        double rightNorm = 0;
+        for (int index = 0; index < size; index++) {
+            double leftValue = left.get(index);
+            double rightValue = right.get(index);
             dot += leftValue * rightValue;
             leftNorm += leftValue * leftValue;
             rightNorm += rightValue * rightValue;
         }
         if (leftNorm == 0 || rightNorm == 0) {
-            return 0.0;
+            return 0;
         }
         return dot / (Math.sqrt(leftNorm) * Math.sqrt(rightNorm));
     }
 
-    private double safeDouble(Double value) {
-        return value == null || value.isNaN() || value.isInfinite() ? 0.0 : value;
+    private double round(double value) {
+        return Math.round(value * 10000.0) / 10000.0;
     }
 
-    private byte[] readBytes(MultipartFile file) {
-        try {
-            if (file == null || file.isEmpty()) {
-                throw new BusinessException(ErrorCode.BAD_REQUEST, "Image file is required");
-            }
-            return file.getBytes();
-        } catch (BusinessException exception) {
-            throw exception;
-        } catch (Exception exception) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, "Image file cannot be read");
-        }
-    }
-
-    private void ensurePetBelongsToUser(Long petId, Long userId) {
-        petRepository.findByIdAndUser(petId, userId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND, "Pet not found"));
+    private record MatchCandidate(PetIdentityPhotoRecord photo, double similarity) {
     }
 }

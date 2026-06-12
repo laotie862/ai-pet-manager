@@ -140,6 +140,16 @@ public class DeviceStreamManager {
             command.add("-i");
             command.add("testsrc=size=" + properties.getStreamWidth() + "x360:rate="
                     + Math.max(1, properties.getStreamFrameRate()));
+        } else if (rtspUrlSupport.isLoopVideoSource(device.rtspUrl())) {
+            String path = rtspUrlSupport.queryParameter(device.rtspUrl(), "path");
+            if (path == null || path.isBlank()) {
+                throw new BusinessException(ErrorCode.BAD_REQUEST, "Loop video source requires path query parameter");
+            }
+            command.add("-stream_loop");
+            command.add("-1");
+            command.add("-re");
+            command.add("-i");
+            command.add(path);
         } else if (rtspUrlSupport.isLocalWebcamSource(device.rtspUrl())) {
             localWebcamSupport.appendInputArguments(command, device.rtspUrl());
         } else {

@@ -1,6 +1,7 @@
 package com.example.demo.device;
 
 import com.example.demo.common.api.ApiResponse;
+import com.example.demo.pet.PetResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,29 @@ public class DeviceController {
     @GetMapping("/{deviceId}")
     public ApiResponse<DeviceResponse> detail(@PathVariable Long deviceId) {
         return ApiResponse.success(deviceService.detail(deviceId));
+    }
+
+    @GetMapping("/{deviceId}/pets")
+    public ApiResponse<List<PetResponse>> listBoundPets(@PathVariable Long deviceId) {
+        return ApiResponse.success(deviceService.listBoundPets(deviceId));
+    }
+
+    @PutMapping("/{deviceId}/pets")
+    public ApiResponse<List<PetResponse>> replaceBoundPets(
+            @PathVariable Long deviceId,
+            @Valid @RequestBody DevicePetBindingRequest request
+    ) {
+        return ApiResponse.success(deviceService.replaceBoundPets(deviceId, request));
+    }
+
+    @PostMapping("/{deviceId}/pets/{petId}")
+    public ApiResponse<List<PetResponse>> addBoundPet(@PathVariable Long deviceId, @PathVariable Long petId) {
+        return ApiResponse.success(deviceService.addBoundPet(deviceId, petId));
+    }
+
+    @DeleteMapping("/{deviceId}/pets/{petId}")
+    public ApiResponse<List<PetResponse>> removeBoundPet(@PathVariable Long deviceId, @PathVariable Long petId) {
+        return ApiResponse.success(deviceService.removeBoundPet(deviceId, petId));
     }
 
     @GetMapping("/{deviceId}/status")

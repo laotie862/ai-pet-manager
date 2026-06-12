@@ -2,12 +2,12 @@ package com.example.demo.device;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DeviceAutoStartRunner {
+public class DeviceAutoStartRunner implements ApplicationRunner {
     private static final Logger log = LoggerFactory.getLogger(DeviceAutoStartRunner.class);
 
     private final DeviceProperties properties;
@@ -24,8 +24,8 @@ public class DeviceAutoStartRunner {
         this.streamManager = streamManager;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void autoStartAssignedDevices() {
+    @Override
+    public void run(ApplicationArguments args) {
         if (!properties.isAutoStartEnabled()) {
             return;
         }
@@ -33,7 +33,7 @@ public class DeviceAutoStartRunner {
             try {
                 streamManager.start(device);
             } catch (Exception exception) {
-                log.warn("Auto start failed for device {}", device.id(), exception);
+                log.warn("Failed to auto-start device {}", device.id(), exception);
             }
         }
     }

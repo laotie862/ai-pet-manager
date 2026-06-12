@@ -70,6 +70,17 @@ public class BehaviorRepository {
                 """, deviceId);
     }
 
+    public List<BehaviorEventRecord> openByDeviceAndPet(Long deviceId, Long petId) {
+        return jdbcTemplate.query("""
+                SELECT *
+                FROM t_behavior_event
+                WHERE device_id = ?
+                  AND pet_id = ?
+                  AND ended_at IS NULL
+                ORDER BY started_at DESC
+                """, EVENT_MAPPER, deviceId, petId);
+    }
+
     public Optional<BehaviorEventRecord> currentByPet(Long petId) {
         return queryOne("""
                 SELECT *

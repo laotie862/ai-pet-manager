@@ -1,0 +1,112 @@
+.pet-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 86px;
+  padding: 14px;
+  border: 1px solid #dfe7f0;
+  border-radius: 8px;
+  text-align: left;
+  background: #fff;
+}
+
+.pet-card:hover,
+.device-card:hover {
+  border-color: #9bb8cb;
+}
+
+.pet-card.selected,
+.device-card.selected {
+  border-color: #1e6f62;
+  background: #f2fbf7;
+}
+
+.pet-avatar {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  color: #fff;
+  background: #1e6f62;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.pet-card strong,
+.pet-card span,
+.pet-card small {
+  display: block;
+}
+
+.pet-card small {
+  margin-top: 3px;
+  color: #61718a;
+}
+
+.device-card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #dfe7f0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.device-main {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  background: transparent;
+}
+
+.device-main small {
+  display: block;
+  overflow: hidden;
+  margin-top: 4px;
+  color: #61718a;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.binding-editor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #e2eaf3;
+  border-radius: 8px;
+  background: #f8fbfd;
+}
+
+.binding-editor > span {
+  color: #536780;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.checkbox-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid #d8e2ed;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 13px;
+}

@@ -1,0 +1,37 @@
+.identity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.identity-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #dfe7f0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.identity-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #eef3f8;
+}
+
+.identity-card figcaption {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+}
+
+.match-result {
+  display: grid;
+  gap: 5px;
+  min-height: 82px;
+  padding: 12px;
+  border: 1px solid #dfe7f0;
+  border-radius: 8px;
+  background: #f8fbfd;
+}

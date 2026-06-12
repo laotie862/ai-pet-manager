@@ -5,6 +5,7 @@ import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.security.CurrentUser;
 import com.example.demo.common.security.SecurityUtils;
 import com.example.demo.pet.PetRepository;
+import com.example.demo.pet.PetResponse;
 import com.example.demo.user.UserAccount;
 import com.example.demo.user.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,7 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DeviceService {
@@ -62,6 +66,15 @@ public class DeviceService {
         return toResponse(requireOwned(deviceId));
     }
 
+    public List<PetResponse> listBoundPets(Long deviceId) {
+        DeviceRecord device = requireOwned(deviceId);
+        return deviceRepository.listBoundPetIds(device.id()).stream()
+                .map(petId -> petRepository.findByIdAndUser(petId, device.userId()))
+                .flatMap(Optional::stream)
+                .map(PetResponse::from)
+                .toList();
+    }
+
     @Transactional
     public DeviceResponse create(DeviceCreateRequest request) {
         CurrentUser currentUser = SecurityUtils.currentUser();
@@ -85,6 +98,9 @@ public class DeviceService {
                 blankToNull(request.username()),
                 credentialCrypto.encrypt(request.password())
         );
+        if (request.petId() != null) {
+            deviceRepository.bindPet(deviceId, request.petId());
+        }
         DeviceRecord device = deviceRepository.findByIdAndUser(deviceId, user.id()).orElseThrow();
         if (deviceProperties.isAutoStartEnabled()) {
             streamManager.start(device);
@@ -95,6 +111,48 @@ public class DeviceService {
     public DeviceStatusResponse testConnection(DeviceConnectionTestRequest request) {
         rtspProbeService.assertReachable(request.rtspUrl(), request.username(), request.password());
         return new DeviceStatusResponse(null, DeviceStatus.ONLINE.name(), false, false, null, null, null, null);
+    }
+
+    @Transactional
+    public List<PetResponse> replaceBoundPets(Long deviceId, DevicePetBindingRequest request) {
+        DeviceRecord device = requireOwned(deviceId);
+        List<Long> petIds = normalizePetIds(request.petIds());
+        ensureBindingAllowed(device.userId(), petIds);
+        ensurePetsBelongToUser(petIds, device.userId());
+        deviceRepository.replaceBoundPets(device.id(), petIds);
+        deviceRepository.updateDefaultPet(device.id(), device.userId(), petIds.getFirst());
+        return listBoundPets(device.id());
+    }
+
+    @Transactional
+    public List<PetResponse> addBoundPet(Long deviceId, Long petId) {
+        DeviceRecord device = requireOwned(deviceId);
+        ensurePetBelongsToUser(petId, device.userId());
+        Set<Long> petIds = new LinkedHashSet<>(deviceRepository.listBoundPetIds(device.id()));
+        petIds.add(petId);
+        List<Long> normalized = normalizePetIds(petIds.stream().toList());
+        ensureBindingAllowed(device.userId(), normalized);
+        deviceRepository.replaceBoundPets(device.id(), normalized);
+        deviceRepository.updateDefaultPet(device.id(), device.userId(), normalized.getFirst());
+        return listBoundPets(device.id());
+    }
+
+    @Transactional
+    public List<PetResponse> removeBoundPet(Long deviceId, Long petId) {
+        DeviceRecord device = requireOwned(deviceId);
+        List<Long> current = deviceRepository.listBoundPetIds(device.id());
+        if (current.size() <= 1 && current.contains(petId)) {
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "Device must keep at least one bound pet");
+        }
+        int deleted = deviceRepository.unbindPet(device.id(), petId);
+        if (deleted == 0) {
+            throw new BusinessException(ErrorCode.NOT_FOUND, "Device pet binding not found");
+        }
+        List<Long> remaining = deviceRepository.listBoundPetIds(device.id());
+        if (petId.equals(device.petId()) && !remaining.isEmpty()) {
+            deviceRepository.updateDefaultPet(device.id(), device.userId(), remaining.getFirst());
+        }
+        return listBoundPets(device.id());
     }
 
     @Transactional
@@ -162,6 +220,35 @@ public class DeviceService {
         }
         petRepository.findByIdAndUser(petId, userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.BAD_REQUEST, "Pet does not belong to current user"));
+    }
+
+    private void ensurePetsBelongToUser(List<Long> petIds, Long userId) {
+        for (Long petId : petIds) {
+            ensurePetBelongsToUser(petId, userId);
+        }
+    }
+
+    private void ensureBindingAllowed(Long userId, List<Long> petIds) {
+        UserAccount user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.UNAUTHORIZED));
+        boolean multiPetAllowed = user.isVip() || "ADMIN".equals(user.role());
+        if (!multiPetAllowed && petIds.size() > 1) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "VIP is required to bind multiple pets to one device");
+        }
+    }
+
+    private List<Long> normalizePetIds(List<Long> petIds) {
+        if (petIds == null || petIds.isEmpty()) {
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "At least one pet must be bound to a device");
+        }
+        List<Long> normalized = petIds.stream()
+                .filter(petId -> petId != null && petId > 0)
+                .distinct()
+                .toList();
+        if (normalized.isEmpty()) {
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "At least one pet must be bound to a device");
+        }
+        return normalized;
     }
 
     private DeviceResponse toResponse(DeviceRecord device) {

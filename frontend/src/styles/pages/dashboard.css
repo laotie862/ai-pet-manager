@@ -1,0 +1,76 @@
+.dashboard-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 180px;
+  padding: 28px;
+  border: 1px solid #dce7f0;
+  border-radius: 8px;
+  color: #f8fbff;
+  background:
+    linear-gradient(135deg, rgb(23 32 47 / 96%), rgb(30 111 98 / 92%)),
+    url("https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1400&q=80") center/cover;
+  box-shadow: 0 16px 40px rgb(21 32 51 / 16%);
+}
+
+.hero-copy h1,
+.page-header h1,
+.auth-copy h1 {
+  margin: 4px 0 0;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.hero-copy h1 {
+  font-size: 36px;
+}
+
+.hero-copy p,
+.auth-copy p {
+  margin: 10px 0 0;
+  color: #dce7f0;
+}
+
+.page-header h1 {
+  font-size: 32px;
+}
+
+.eyebrow {
+  color: #59708c;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.shortcut-card {
+  display: grid;
+  gap: 8px;
+  min-height: 138px;
+  padding: 18px;
+  border: 1px solid #dfe7f0;
+  border-radius: 8px;
+  color: #18212f;
+  background: #fff;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgb(21 32 51 / 6%);
+}
+
+.shortcut-card:hover {
+  border-color: #1e6f62;
+  transform: translateY(-1px);
+}
+
+.shortcut-card strong {
+  font-size: 18px;
+}
+
+.shortcut-card span {
+  color: #61718a;
+}

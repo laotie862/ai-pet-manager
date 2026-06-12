@@ -61,9 +61,62 @@ public class DeviceRepository {
 
     public List<DeviceRecord> listAssignedDevices() {
         return jdbcTemplate.query(
-                "SELECT * FROM t_device WHERE pet_id IS NOT NULL ORDER BY id",
+                """
+                SELECT DISTINCT d.*
+                FROM t_device d
+                LEFT JOIN t_device_pet dp ON dp.device_id = d.id AND dp.enabled = TRUE
+                WHERE d.pet_id IS NOT NULL OR dp.pet_id IS NOT NULL
+                ORDER BY d.id
+                """,
                 DEVICE_MAPPER
         );
+    }
+
+    public List<Long> listBoundPetIds(Long deviceId) {
+        List<Long> petIds = jdbcTemplate.queryForList("""
+                SELECT pet_id
+                FROM t_device_pet
+                WHERE device_id = ? AND enabled = TRUE
+                ORDER BY id
+                """, Long.class, deviceId);
+        if (!petIds.isEmpty()) {
+            return petIds;
+        }
+        DeviceRecord device = findById(deviceId).orElse(null);
+        return device == null || device.petId() == null ? List.of() : List.of(device.petId());
+    }
+
+    public void bindPet(Long deviceId, Long petId) {
+        jdbcTemplate.update("""
+                INSERT INTO t_device_pet(device_id, pet_id, enabled)
+                VALUES (?, ?, TRUE)
+                ON CONFLICT (device_id, pet_id)
+                DO UPDATE SET enabled = TRUE, updated_at = CURRENT_TIMESTAMP
+                """, deviceId, petId);
+    }
+
+    public void replaceBoundPets(Long deviceId, List<Long> petIds) {
+        jdbcTemplate.update("DELETE FROM t_device_pet WHERE device_id = ?", deviceId);
+        for (Long petId : petIds) {
+            bindPet(deviceId, petId);
+        }
+    }
+
+    public int unbindPet(Long deviceId, Long petId) {
+        return jdbcTemplate.update(
+                "DELETE FROM t_device_pet WHERE device_id = ? AND pet_id = ?",
+                deviceId,
+                petId
+        );
+    }
+
+    public void updateDefaultPet(Long deviceId, Long userId, Long petId) {
+        jdbcTemplate.update("""
+                UPDATE t_device
+                SET pet_id = ?,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE id = ? AND user_id = ?
+                """, petId, deviceId, userId);
     }
 
     public Optional<DeviceRecord> findByIdAndUser(Long deviceId, Long userId) {
