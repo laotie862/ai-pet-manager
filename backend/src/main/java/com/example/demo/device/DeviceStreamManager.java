@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -77,6 +79,8 @@ public class DeviceStreamManager {
             streamExecutor.submit(() -> monitor(stream));
             return stream.snapshot();
         } catch (BusinessException exception) {
+            deviceRepository.updateRuntimeState(device.id(), DeviceStatus.OFFLINE, exception.getMessage(), false);
+            statusCache.put(device.id(), DeviceStatus.OFFLINE);
             throw exception;
         } catch (Exception exception) {
             log.error("Failed to start FFmpeg for device {}", device.id(), exception);
@@ -140,6 +144,19 @@ public class DeviceStreamManager {
             command.add("-i");
             command.add("testsrc=size=" + properties.getStreamWidth() + "x360:rate="
                     + Math.max(1, properties.getStreamFrameRate()));
+        } else if (rtspUrlSupport.isLoopVideoSource(device.rtspUrl())) {
+            String path = rtspUrlSupport.queryParameter(device.rtspUrl(), "path");
+            if (path == null || path.isBlank()) {
+                throw new BusinessException(ErrorCode.BAD_REQUEST, "Loop video source requires path query parameter");
+            }
+            if (!new File(path).isFile()) {
+                throw new BusinessException(ErrorCode.BAD_REQUEST, "Loop video file not found: " + path);
+            }
+            command.add("-stream_loop");
+            command.add("-1");
+            command.add("-re");
+            command.add("-i");
+            command.add(path);
         } else if (rtspUrlSupport.isLocalWebcamSource(device.rtspUrl())) {
             localWebcamSupport.appendInputArguments(command, device.rtspUrl());
         } else {
@@ -201,7 +218,9 @@ public class DeviceStreamManager {
     private void drainErrors(ManagedStream stream) {
         try (InputStream inputStream = stream.process().getErrorStream()) {
             byte[] buffer = new byte[1024];
-            while (inputStream.read(buffer) != -1 && !stream.intentionalStop()) {
+            int length;
+            while ((length = inputStream.read(buffer)) != -1 && !stream.intentionalStop()) {
+                stream.appendError(buffer, length);
                 // Draining stderr prevents FFmpeg from blocking when it emits diagnostics.
             }
         } catch (Exception exception) {
@@ -219,7 +238,12 @@ public class DeviceStreamManager {
                 return;
             }
 
-            String error = "FFmpeg exited with code " + exitCode;
+            String error = stream.lastError();
+            if (error == null || error.isBlank()) {
+                error = "FFmpeg exited with code " + exitCode;
+            } else {
+                error = "FFmpeg exited with code " + exitCode + ": " + error;
+            }
             log.warn("{} for device {}", error, stream.device().id());
             deviceRepository.updateRuntimeState(stream.device().id(), DeviceStatus.OFFLINE, error, false);
             statusCache.put(stream.device().id(), DeviceStatus.OFFLINE);
@@ -260,6 +284,7 @@ public class DeviceStreamManager {
         private volatile OffsetDateTime lastFrameAt;
         private volatile OffsetDateTime lastHeartbeatWrite;
         private volatile int restartAttempts;
+        private volatile String lastError;
 
         private ManagedStream(DeviceRecord device, int restartAttempts) {
             this.device = device;
@@ -319,6 +344,24 @@ public class DeviceStreamManager {
         private int nextRestartAttempt() {
             restartAttempts++;
             return restartAttempts;
+        }
+
+        private String lastError() {
+            return lastError;
+        }
+
+        private void appendError(byte[] buffer, int length) {
+            if (length <= 0) {
+                return;
+            }
+            String chunk = new String(buffer, 0, length, StandardCharsets.UTF_8)
+                    .replaceAll("\\s+", " ")
+                    .trim();
+            if (chunk.isBlank()) {
+                return;
+            }
+            String combined = lastError == null || lastError.isBlank() ? chunk : lastError + " " + chunk;
+            lastError = combined.length() <= 500 ? combined : combined.substring(combined.length() - 500);
         }
 
         private DeviceStreamSnapshot snapshot() {

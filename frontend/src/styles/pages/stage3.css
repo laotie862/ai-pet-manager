@@ -1,0 +1,130 @@
+.report-layout,
+.settings-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.report-copy p {
+  margin: 0;
+  color: #253349;
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.muted-line {
+  display: block;
+  margin-top: 12px;
+  color: #61718a;
+  font-size: 12px;
+}
+
+.weather-card {
+  display: grid;
+  gap: 8px;
+  min-height: 132px;
+  padding: 14px;
+  border: 1px solid #d9e7e2;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f6fffb, #eef7ff);
+}
+
+.weather-card strong,
+.weather-card span,
+.weather-card small {
+  display: block;
+}
+
+.weather-card span {
+  color: #1e6f62;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.weather-card small {
+  color: #61718a;
+  line-height: 1.6;
+}
+
+.date-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid #ced8e5;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.date-picker input {
+  border: 0;
+  background: transparent;
+  font: inherit;
+}
+
+.message-list,
+.toggle-list {
+  display: grid;
+  gap: 10px;
+}
+
+.message-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 78px;
+  padding: 12px;
+  border: 1px solid #e0e8f1;
+  border-radius: 8px;
+  background: #f8fbfd;
+}
+
+.message-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  color: #16352e;
+  background: #dff5ef;
+}
+
+.message-row strong,
+.message-row small {
+  display: block;
+}
+
+.message-row small {
+  margin-top: 4px;
+  color: #61718a;
+}
+
+.message-row em {
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: #1e6f62;
+  background: #e5f6f1;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.toggle-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 1px solid #e0e8f1;
+  border-radius: 8px;
+  background: #f8fbfd;
+}
+
+.success-line {
+  margin: 0;
+  color: #1e6f62;
+  font-weight: 800;
+}

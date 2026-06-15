@@ -58,6 +58,19 @@ public class PetRepository {
         return count == null ? 0 : count;
     }
 
+    // Admin: list all pets across all users
+    public List<PetRecord> listAll(int limit, int offset) {
+        return jdbcTemplate.query(
+                "SELECT * FROM t_pet ORDER BY created_at DESC LIMIT ? OFFSET ?",
+                PET_MAPPER, limit, offset
+        );
+    }
+
+    public int countAll() {
+        Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM t_pet", Integer.class);
+        return count != null ? count : 0;
+    }
+
     public Optional<PetRecord> findByIdAndUser(Long petId, Long userId) {
         try {
             return Optional.ofNullable(jdbcTemplate.queryForObject(

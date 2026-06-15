@@ -62,7 +62,8 @@ public class SecurityConfig {
                                 "/api/users/**",
                                 "/api/pets/**",
                                 "/api/devices/**",
-                                "/api/behavior/**"
+                                "/api/behavior/**",
+                                "/api/reports/**"
                         ).authenticated()
                         .anyRequest().denyAll()
                 )
@@ -92,7 +93,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(List.of("*"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 

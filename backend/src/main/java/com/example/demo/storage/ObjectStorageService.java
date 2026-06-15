@@ -47,7 +47,18 @@ public class ObjectStorageService {
         String contentType = resolveContentType(file);
         String extension = EXTENSIONS_BY_CONTENT_TYPE.get(contentType);
         String objectName = buildPetPhotoObjectName(userId, petId, extension);
+        return upload(file, contentType, objectName, "Pet photo upload failed");
+    }
 
+    public StoredObject uploadPetIdentityPhoto(Long userId, Long petId, MultipartFile file) {
+        validateFile(file);
+        String contentType = resolveContentType(file);
+        String extension = EXTENSIONS_BY_CONTENT_TYPE.get(contentType);
+        String objectName = buildPetIdentityPhotoObjectName(userId, petId, extension);
+        return upload(file, contentType, objectName, "Pet identity photo upload failed");
+    }
+
+    private StoredObject upload(MultipartFile file, String contentType, String objectName, String failureMessage) {
         try (InputStream inputStream = file.getInputStream()) {
             ensureBucket();
             minioClient.putObject(PutObjectArgs.builder()
@@ -61,7 +72,7 @@ public class ObjectStorageService {
             throw exception;
         } catch (Exception exception) {
             log.error("Failed to upload pet photo to object storage", exception);
-            throw new BusinessException(ErrorCode.INTERNAL_ERROR, "Pet photo upload failed");
+            throw new BusinessException(ErrorCode.INTERNAL_ERROR, failureMessage);
         }
     }
 
@@ -104,6 +115,13 @@ public class ObjectStorageService {
         String fileName = UUID.randomUUID() + extension;
         String prefix = properties.normalizedPathPrefix();
         String ownerPath = "users/" + userId + "/pets/" + petId + "/" + fileName;
+        return StringUtils.hasText(prefix) ? prefix + "/" + ownerPath : ownerPath;
+    }
+
+    private String buildPetIdentityPhotoObjectName(Long userId, Long petId, String extension) {
+        String fileName = UUID.randomUUID() + extension;
+        String prefix = properties.normalizedPathPrefix();
+        String ownerPath = "users/" + userId + "/pets/" + petId + "/identity/" + fileName;
         return StringUtils.hasText(prefix) ? prefix + "/" + ownerPath : ownerPath;
     }
 

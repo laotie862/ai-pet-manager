@@ -27,7 +27,9 @@ public class RtspProbeService {
 
     public void assertReachable(String rtspUrl, String username, String password) {
         rtspUrlSupport.validate(rtspUrl);
-        if (!properties.isConnectionTestEnabled() || rtspUrlSupport.isMockSource(rtspUrl)) {
+        if (!properties.isConnectionTestEnabled()
+                || rtspUrlSupport.isMockSource(rtspUrl)
+                || rtspUrlSupport.isLoopVideoSource(rtspUrl)) {
             return;
         }
         if (rtspUrlSupport.isLoopVideoSource(rtspUrl)) {

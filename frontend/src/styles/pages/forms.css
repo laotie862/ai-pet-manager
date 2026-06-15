@@ -1,0 +1,51 @@
+.auth-page {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(135deg, #f4f7fb, #dfeee9);
+}
+
+.auth-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(320px, 1fr);
+  gap: 24px;
+  width: min(920px, 100%);
+  align-items: center;
+}
+
+.auth-copy h1 {
+  font-size: 44px;
+}
+
+.auth-copy p {
+  max-width: 420px;
+  color: #536780;
+  line-height: 1.7;
+}
+
+.auth-form {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: 8px;
+  background: #eef3f8;
+}
+
+.segmented button {
+  min-height: 36px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+}
+
+.segmented button.active {
+  color: #fff;
+  background: #17202f;
+}

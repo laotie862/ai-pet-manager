@@ -21,17 +21,10 @@ public class RtspUrlSupport {
     public URI validate(String rtspUrl) {
         try {
             URI uri = URI.create(rtspUrl.trim());
-            String scheme = uri.getScheme();
-            if ("video".equalsIgnoreCase(scheme) && properties.isLoopVideoEnabled()) {
-                if (!StringUtils.hasText(uri.getHost())) {
-                    throw new BusinessException(ErrorCode.BAD_REQUEST, "Video source must include host, for example video://loop?path=/data/videos/demo.mp4");
-                }
-                return uri;
+            if (!isSupportedScheme(uri) || !StringUtils.hasText(uri.getHost())) {
+                throw new BusinessException(ErrorCode.BAD_REQUEST, "Device URL must start with rtsp:// or video:// and include host");
             }
-            if (!"rtsp".equalsIgnoreCase(scheme) || !StringUtils.hasText(uri.getHost())) {
-                throw new BusinessException(ErrorCode.BAD_REQUEST, "RTSP URL must start with rtsp:// and include host");
-            }
-            if (StringUtils.hasText(uri.getUserInfo())) {
+            if ("rtsp".equalsIgnoreCase(uri.getScheme()) && StringUtils.hasText(uri.getUserInfo())) {
                 throw new BusinessException(ErrorCode.BAD_REQUEST, "Use username and password fields instead of embedding credentials in RTSP URL");
             }
             return uri;
@@ -47,37 +40,33 @@ public class RtspUrlSupport {
             return false;
         }
         URI uri = validate(rtspUrl);
+        if (!"rtsp".equalsIgnoreCase(uri.getScheme())) {
+            return false;
+        }
         String host = uri.getHost().toLowerCase(Locale.ROOT);
         return "mock".equals(host) || "simulated".equals(host) || "demo".equals(host);
     }
 
     public boolean isLocalWebcamSource(String rtspUrl) {
         URI uri = validate(rtspUrl);
+        if (!"rtsp".equalsIgnoreCase(uri.getScheme())) {
+            return false;
+        }
         String host = uri.getHost().toLowerCase(Locale.ROOT);
         return "webcam".equals(host) || "camera".equals(host) || "localcam".equals(host);
     }
 
     public boolean isLoopVideoSource(String rtspUrl) {
-        if (!properties.isLoopVideoEnabled()) {
-            return false;
-        }
         URI uri = validate(rtspUrl);
-        return "video".equalsIgnoreCase(uri.getScheme()) && "loop".equalsIgnoreCase(uri.getHost());
-    }
-
-    public String loopVideoPath(String rtspUrl) {
-        if (!isLoopVideoSource(rtspUrl)) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, "Unsupported video source");
-        }
-        String path = queryParameter(rtspUrl, "path");
-        if (!StringUtils.hasText(path)) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, "Video loop source requires path query parameter");
-        }
-        return path;
+        String host = uri.getHost().toLowerCase(Locale.ROOT);
+        return "video".equalsIgnoreCase(uri.getScheme()) && "loop".equals(host);
     }
 
     public String withCredentials(String rtspUrl, String username, String password) {
         URI uri = validate(rtspUrl);
+        if (!"rtsp".equalsIgnoreCase(uri.getScheme())) {
+            return uri.toString();
+        }
         if (!StringUtils.hasText(username)) {
             return uri.toString();
         }
@@ -118,5 +107,9 @@ public class RtspUrlSupport {
 
     private String decode(String value) {
         return URLDecoder.decode(value, StandardCharsets.UTF_8);
+    }
+
+    private boolean isSupportedScheme(URI uri) {
+        return "rtsp".equalsIgnoreCase(uri.getScheme()) || "video".equalsIgnoreCase(uri.getScheme());
     }
 }
