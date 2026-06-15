@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Activity, Camera, ChartColumn, Fingerprint, PawPrint, Radio, RefreshCw } from 'lucide-vue-next'
+import { Activity, Bell, Camera, ChartColumn, FileText, Fingerprint, PawPrint, Radio, RefreshCw, Settings } from 'lucide-vue-next'
 import { computed, onMounted, ref } from 'vue'
 
 import { errorMessage } from '../api'
@@ -20,7 +20,10 @@ const shortcuts = [
   { to: '/devices', title: '设备切换', desc: '选择当前摄像头或视频源', icon: Camera },
   { to: '/live', title: '实时视频', desc: '打开视频流预览', icon: Radio },
   { to: '/behavior', title: '行为记录', desc: '查看当前行为和时间线', icon: Activity },
-  { to: '/identity', title: '身份识别', desc: '上传身份照片并测试匹配', icon: Fingerprint }
+  { to: '/identity', title: '身份识别', desc: '上传身份照片并测试匹配', icon: Fingerprint },
+  { to: '/report', title: '每日报告', desc: '根据今日行为生成日报', icon: FileText },
+  { to: '/messages', title: '消息中心', desc: '查看告警、日报和提醒', icon: Bell },
+  { to: '/settings/push', title: '推送设置', desc: '配置企业微信接收偏好', icon: Settings }
 ]
 
 async function load() {

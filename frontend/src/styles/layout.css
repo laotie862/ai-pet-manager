@@ -60,12 +60,15 @@
 
 .top-nav {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 6px;
   min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .top-nav a {
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   gap: 8px;

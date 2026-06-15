@@ -6,6 +6,7 @@ import type {
   BehaviorCurrent,
   BehaviorEvent,
   BehaviorSummary,
+  DailyReport,
   Device,
   DeviceRequest,
   DeviceStatus,
@@ -35,6 +36,7 @@ export const useWorkspaceStore = defineStore('workspace', () => {
   const currentBehavior = ref<BehaviorCurrent | null>(null)
   const summary = ref<BehaviorSummary | null>(null)
   const timeline = ref<BehaviorEvent[]>([])
+  const dailyReport = ref<DailyReport | null>(null)
   const identityPhotos = ref<IdentityPhoto[]>([])
   const identityMatch = ref<IdentityMatch | null>(null)
   const deviceStatuses = ref<Record<number, DeviceStatus>>({})
@@ -144,15 +146,22 @@ export const useWorkspaceStore = defineStore('workspace', () => {
     await loadDevices()
   }
 
-  async function loadBehavior(petId: number) {
+  async function loadBehavior(petId: number, date?: string) {
+    const query = date ? { params: { date } } : undefined
     const [current, daySummary, events] = await Promise.all([
       unwrap<BehaviorCurrent>(api.get(`/behavior/pets/${petId}/current`)),
-      unwrap<BehaviorSummary>(api.get(`/behavior/pets/${petId}/summary`)),
-      unwrap<BehaviorEvent[]>(api.get(`/behavior/pets/${petId}/timeline`))
+      unwrap<BehaviorSummary>(api.get(`/behavior/pets/${petId}/summary`, query)),
+      unwrap<BehaviorEvent[]>(api.get(`/behavior/pets/${petId}/timeline`, query))
     ])
     currentBehavior.value = current
     summary.value = daySummary
     timeline.value = events
+  }
+
+  async function loadDailyReport(petId: number, date?: string) {
+    const query = date ? { params: { date } } : undefined
+    dailyReport.value = await unwrap<DailyReport>(api.get(`/reports/pets/${petId}/daily`, query))
+    summary.value = dailyReport.value.summary
   }
 
   async function loadIdentityPhotos(petId: number) {
@@ -188,6 +197,7 @@ export const useWorkspaceStore = defineStore('workspace', () => {
     currentBehavior,
     summary,
     timeline,
+    dailyReport,
     identityPhotos,
     identityMatch,
     deviceStatuses,
@@ -208,6 +218,7 @@ export const useWorkspaceStore = defineStore('workspace', () => {
     loadDevicePets,
     replaceDevicePets,
     loadBehavior,
+    loadDailyReport,
     loadIdentityPhotos,
     uploadIdentityPhoto,
     deleteIdentityPhoto,

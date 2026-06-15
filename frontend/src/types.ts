@@ -111,6 +111,26 @@ export interface BehaviorEvent {
   modelVersion?: string
 }
 
+export interface WeatherSnapshot {
+  city: string
+  condition: string
+  temperatureCelsius?: number
+  advice: string
+  available: boolean
+}
+
+export interface DailyReport {
+  petId: number
+  petName: string
+  reportDate: string
+  content: string
+  prompt: string
+  weather: WeatherSnapshot
+  summary: BehaviorSummary
+  templateFallback: boolean
+  modelVersion: string
+}
+
 export interface IdentityPhoto {
   id: number
   petId: number

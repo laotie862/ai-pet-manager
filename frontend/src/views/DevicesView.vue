@@ -12,7 +12,7 @@ const error = ref('')
 const bindingDrafts = reactive<Record<number, number[]>>({})
 const form = reactive({
   name: '循环视频设备',
-  rtspUrl: 'video://loop?path=/data/videos/sample.mp4',
+  rtspUrl: 'video://loop?path=/data/raw-videos/测试视频.mp4',
   username: '',
   password: ''
 })

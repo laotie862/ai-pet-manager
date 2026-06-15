@@ -136,6 +136,31 @@ public class DeviceRepository {
         return count == null ? 0 : count;
     }
 
+    // Admin: list all devices across all users, optionally filtered by status
+    public List<DeviceRecord> listAll(String status, int limit, int offset) {
+        if (status != null && !status.isBlank()) {
+            return jdbcTemplate.query(
+                    "SELECT * FROM t_device WHERE status = ? ORDER BY created_at DESC LIMIT ? OFFSET ?",
+                    DEVICE_MAPPER, status, limit, offset
+            );
+        }
+        return jdbcTemplate.query(
+                "SELECT * FROM t_device ORDER BY created_at DESC LIMIT ? OFFSET ?",
+                DEVICE_MAPPER, limit, offset
+        );
+    }
+
+    public int countAll(String status) {
+        if (status != null && !status.isBlank()) {
+            Integer count = jdbcTemplate.queryForObject(
+                    "SELECT COUNT(*) FROM t_device WHERE status = ?", Integer.class, status);
+            return count != null ? count : 0;
+        }
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM t_device", Integer.class);
+        return count != null ? count : 0;
+    }
+
     public Optional<DeviceRecord> updateRoi(Long deviceId, Long userId, String roiJson) {
         int updated = jdbcTemplate.update("""
                 UPDATE t_device

@@ -28,6 +28,8 @@ public class BehaviorAnalysisService {
     private final CvInferenceClient cvInferenceClient;
     private final PetIdentityMatcher petIdentityMatcher;
     private final BehaviorStateMachine behaviorStateMachine;
+    private final BehaviorFrameGate frameGate;
+    private final BehaviorSampleCaptureService sampleCaptureService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public BehaviorAnalysisService(
@@ -36,7 +38,9 @@ public class BehaviorAnalysisService {
             DeviceStreamManager streamManager,
             CvInferenceClient cvInferenceClient,
             PetIdentityMatcher petIdentityMatcher,
-            BehaviorStateMachine behaviorStateMachine
+            BehaviorStateMachine behaviorStateMachine,
+            BehaviorFrameGate frameGate,
+            BehaviorSampleCaptureService sampleCaptureService
     ) {
         this.properties = properties;
         this.deviceRepository = deviceRepository;
@@ -44,6 +48,8 @@ public class BehaviorAnalysisService {
         this.cvInferenceClient = cvInferenceClient;
         this.petIdentityMatcher = petIdentityMatcher;
         this.behaviorStateMachine = behaviorStateMachine;
+        this.frameGate = frameGate;
+        this.sampleCaptureService = sampleCaptureService;
     }
 
     @Scheduled(
@@ -64,6 +70,9 @@ public class BehaviorAnalysisService {
     private void analyze(DeviceRecord device, Long petId) {
         streamManager.latestFrame(device.id()).ifPresent(frame -> {
             try {
+                if (!frameGate.shouldAnalyze(device.id(), frame)) {
+                    return;
+                }
                 if (!identityMatched(device, petId, frame)) {
                     behaviorStateMachine.acceptIdentityMiss(device, petId);
                     return;
@@ -73,6 +82,7 @@ public class BehaviorAnalysisService {
                         String.valueOf(device.id()),
                         readRoi(device.roiPolygonJson())
                 ));
+                sampleCaptureService.capture(device, petId, detection, frame);
                 behaviorStateMachine.acceptDetection(device, petId, detection);
             } catch (Exception exception) {
                 log.warn("Behavior analysis failed for device {}", device.id(), exception);

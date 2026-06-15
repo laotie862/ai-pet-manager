@@ -152,6 +152,55 @@ public class BehaviorRepository {
         );
     }
 
+    // Admin: list all behavior events, optionally filtered
+    public List<BehaviorEventRecord> listAll(
+            Long petId, LocalDate date, String behaviorType, int limit, int offset) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM t_behavior_event WHERE 1=1");
+        java.util.List<Object> params = new java.util.ArrayList<>();
+
+        if (petId != null) {
+            sql.append(" AND pet_id = ?");
+            params.add(petId);
+        }
+        if (date != null) {
+            sql.append(" AND started_at >= ? AND started_at < ?");
+            params.add(Timestamp.from(date.atStartOfDay().toInstant(ZoneOffset.UTC)));
+            params.add(Timestamp.from(date.plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC)));
+        }
+        if (behaviorType != null && !behaviorType.isBlank()) {
+            sql.append(" AND behavior_type = ?");
+            params.add(behaviorType);
+        }
+
+        sql.append(" ORDER BY started_at DESC LIMIT ? OFFSET ?");
+        params.add(limit);
+        params.add(offset);
+
+        return jdbcTemplate.query(sql.toString(), EVENT_MAPPER, params.toArray());
+    }
+
+    public int countAll(Long petId, LocalDate date, String behaviorType) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM t_behavior_event WHERE 1=1");
+        java.util.List<Object> params = new java.util.ArrayList<>();
+
+        if (petId != null) {
+            sql.append(" AND pet_id = ?");
+            params.add(petId);
+        }
+        if (date != null) {
+            sql.append(" AND started_at >= ? AND started_at < ?");
+            params.add(Timestamp.from(date.atStartOfDay().toInstant(ZoneOffset.UTC)));
+            params.add(Timestamp.from(date.plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC)));
+        }
+        if (behaviorType != null && !behaviorType.isBlank()) {
+            sql.append(" AND behavior_type = ?");
+            params.add(behaviorType);
+        }
+
+        Integer count = jdbcTemplate.queryForObject(sql.toString(), Integer.class, params.toArray());
+        return count != null ? count : 0;
+    }
+
     private Optional<BehaviorEventRecord> queryOne(String sql, Object... args) {
         try {
             return Optional.ofNullable(jdbcTemplate.queryForObject(sql, EVENT_MAPPER, args));
